@@ -31,6 +31,9 @@
     transition-duration: 150ms;
   }
   
+  .svg-pulse {
+    animation: pulse-color 1.5s ease-in-out infinite
+  }
   /* Makes containers to have a proper inline padding on all screens */
   .rt-ContainerInner {
     width: 92%;
@@ -42,6 +45,3 @@
     height:100%
   }
 
-  .svg-pulse {
-    animation: pulse-color 1.5s ease-in-out infinite
-  }
