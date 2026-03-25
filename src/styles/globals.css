@@ -41,3 +41,7 @@
     scroll-behavior: smooth;
     height:100%
   }
+
+  .svg-pulse {
+    animation: pulse-color 1.5s ease-in-out infinite
+  }
