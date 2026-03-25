@@ -2,6 +2,7 @@
 
 import { PendingTasksList } from "@/components/PendingTaskList";
 import { useTasks } from "@/hooks/useTasks";
+import { SegmentedControl } from "@radix-ui/themes";
 
 export default function TasksPage() {
   const { selectedTab, handleTabChange, pendingTasks } = useTasks();
@@ -10,31 +11,12 @@ export default function TasksPage() {
       <div className="w-full max-w-2xl ">
         <div className="w-full flex justify-between items-center mb-4">
           <>{pendingTasks?.taskCount} Tasks</>
-          <div className="flex bg-gray-300 rounded-full p-1 w-fit">
-            <button
-              onClick={() => handleTabChange("pending")}
-              className={`px-3 py-1 text-sm rounded-full transition-colors ${
-                selectedTab === "pending"
-                  ? "bg-white text-black"
-                  : "text-gray-700"
-              }`}
-            >
-              Pending
-            </button>
-
-            <button
-              onClick={() => handleTabChange("completed")}
-              className={`px-3 py-1 text-sm rounded-full transition-colors ${
-                selectedTab === "completed"
-                  ? "bg-white text-black"
-                  : "text-gray-700"
-              }`}
-            >
-              Completed
-            </button>
-          </div>
+          <SegmentedControl.Root value ={selectedTab} defaultValue="pending" radius="full">
+		<SegmentedControl.Item value="pending">Pending</SegmentedControl.Item>
+		<SegmentedControl.Item value="completed">Completed</SegmentedControl.Item>
+	</SegmentedControl.Root>
         </div>
-        {pendingTasks?.tasks && <PendingTasksList tasks={pendingTasks.tasks} />}
+        {pendingTasks?.tasks && selectedTab=== "pending" && <PendingTasksList tasks={pendingTasks.tasks} />}
       </div>
     </div>
   );

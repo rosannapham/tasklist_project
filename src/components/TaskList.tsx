@@ -15,17 +15,15 @@ export function TaskList({
   hasSubheadings = false,
 }: TaskListProps) {
   return (
-    <Table.Root variant="surface" className="rounded-none border-0 border-b last:border-b-0">
+    <Table.Root className="rounded-none">
       {hasSubheadings && (
-        <Table.Header>
+        <Table.Header className="bg-gray-100">
           <Table.Row>
-            <Table.ColumnHeaderCell>{categoryName}</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell >{categoryName}</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell />
           </Table.Row>
         </Table.Header>
       )}
-
-      {/* Table body */}
       <Table.Body>
         {tasks.map((task) => (
           <Table.Row key={task.id}>
@@ -49,7 +47,7 @@ export function TaskList({
                   variant="outline"
                   highContrast
                 >
-                  New
+                  {task.category}
                 </Badge>
               </Flex>
             </Table.Cell>
