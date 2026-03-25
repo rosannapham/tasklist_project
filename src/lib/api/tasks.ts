@@ -1,5 +1,8 @@
 import { TasksApiResponse, Task, TasksResponse } from "@/types/tasks.types";
-import { removeEmptyTaskCategories, transformTasksFromApi } from "@/utils/transformer";
+import {
+  removeEmptyTaskCategories,
+  transformTasksFromApi,
+} from "@/utils/transformer";
 
 export const tasksApi = {
   async getAllTasks(): Promise<TasksApiResponse> {

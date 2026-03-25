@@ -1,5 +1,5 @@
-import { TaskList } from "@/components/TaskList";
-import TasksPage from "@/pages/tasks/page";
+import TasksPage from "./tasks/page";
+
 
 const Page = () => (
   <main>

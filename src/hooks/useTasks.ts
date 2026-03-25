@@ -1,13 +1,12 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { tasksApi } from '@/lib/api/tasks';
-import { Task, TasksResponse } from '@/types/tasks.types';
-
+import { tasksApi } from "@/lib/api/tasks";
+import { Task, TasksResponse } from "@/types/tasks.types";
 
 export function useTasks() {
-    type TaskTab = "pending" | "completed"
+  type TaskTab = "pending" | "completed";
   const [selectedTab, setSelectedTab] = useState<TaskTab>("pending");
   const [pendingTasks, setPendingTasks] = useState<TasksResponse>();
   const [completedTasks, setCompletedTasks] = useState<TasksResponse>();
@@ -15,20 +14,17 @@ export function useTasks() {
   const [error, setError] = useState<string | null>(null);
   const [accountingTask, setTask] = useState<Task>();
 
-
   const fetchPendingTasks = async () => {
     try {
-        setLoading(true);
+      setLoading(true);
       setError(null);
 
       const data = await tasksApi.getPendingTasks();
-      setPendingTasks(data)
-      console.log(data)
-
-
+      setPendingTasks(data);
+      console.log(data);
     } catch (err) {
-      setError('Failed to load tasks');
-      console.error('Error fetching tasks:', err);
+      setError("Failed to load tasks");
+      console.error("Error fetching tasks:", err);
     } finally {
       setLoading(false);
     }
@@ -37,16 +33,13 @@ export function useTasks() {
   useEffect(() => {
     fetchPendingTasks();
 
-    fetchPendingTasks()
-   
+    fetchPendingTasks();
   }, []);
 
-
-  const handleTabChange = (tab : TaskTab)=> setSelectedTab(tab)
+  const handleTabChange = (tab: TaskTab) => setSelectedTab(tab);
   return {
-  
     selectedTab,
     handleTabChange,
-    pendingTasks
+    pendingTasks,
   };
 }

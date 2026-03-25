@@ -10,16 +10,16 @@ export interface TaskApi {
   task_name: string;
 }
 export interface Task {
-    id: string;
-    status: string;
-    created_at: string;
-    slug: string;
-    category: string;
-    dueDate: string;
-    completedAt: string;
-    completedBy: string;
-    name: string;
-  }
+  id: string;
+  status: string;
+  created_at: string;
+  slug: string;
+  category: string;
+  dueDate: string;
+  completedAt: string;
+  completedBy: string;
+  name: string;
+}
 
 export type Tasks = Record<string, Task[]>;
 

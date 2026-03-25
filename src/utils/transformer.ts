@@ -18,27 +18,29 @@ export function removeEmptyTaskCategories(tasks: TasksApi): TasksApi {
 }
 
 export function transformTask({
-    due_date,
-    completed_at,
-    completed_by,
-    task_name,
-    ...rest
-}: TaskApi) : Task {
-    return {
-        ...rest,
-        dueDate: due_date,
-        completedAt: completed_at,
-        completedBy: completed_by,
-        name: task_name
-    }
+  due_date,
+  completed_at,
+  completed_by,
+  task_name,
+  ...rest
+}: TaskApi): Task {
+  return {
+    ...rest,
+    dueDate: due_date,
+    completedAt: completed_at,
+    completedBy: completed_by,
+    name: task_name,
+  };
 }
 
 export function transformTasksFromApi(tasksApi: TasksApi): Tasks {
-    const transformedTasks: Tasks = {};
-  
-    for (const [category, taskList] of Object.entries(tasksApi)) {
-      transformedTasks[category] = taskList.map((task: TaskApi) => transformTask(task));
-    }
-  
-    return transformedTasks;
+  const transformedTasks: Tasks = {};
+
+  for (const [category, taskList] of Object.entries(tasksApi)) {
+    transformedTasks[category] = taskList.map((task: TaskApi) =>
+      transformTask(task),
+    );
   }
+
+  return transformedTasks;
+}

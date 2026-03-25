@@ -6,16 +6,16 @@ import { Badge, Flex, Table, Text } from "@radix-ui/themes";
 interface TaskListProps {
   categoryName?: string;
   tasks: Task[];
-  hasSubheadings?: boolean
+  hasSubheadings?: boolean;
 }
 
-export function TaskList ({
+export function TaskList({
   categoryName,
   tasks,
   hasSubheadings = false,
 }: TaskListProps) {
   return (
-    <Table.Root variant="surface">
+    <Table.Root variant="surface" className="rounded-none border-0 border-b last:border-b-0">
       {hasSubheadings && (
         <Table.Header>
           <Table.Row>
@@ -34,14 +34,21 @@ export function TaskList ({
                 <Text weight="medium">{task.name}</Text>
                 <Text size="1" color="gray">
                   {task.dueDate}
-                  {task.completedAt ? ` (Completed on ${task.completedAt})` : ""}
+                  {task.completedAt
+                    ? ` (Completed on ${task.completedAt})`
+                    : ""}
                 </Text>
               </Flex>
             </Table.RowHeaderCell>
 
             <Table.Cell>
               <Flex justify="end" align="center" style={{ height: "100%" }}>
-                <Badge radius="full" color="gray" variant="outline" highContrast>
+                <Badge
+                  radius="full"
+                  color="gray"
+                  variant="outline"
+                  highContrast
+                >
                   New
                 </Badge>
               </Flex>
@@ -51,4 +58,4 @@ export function TaskList ({
       </Table.Body>
     </Table.Root>
   );
-};
+}
