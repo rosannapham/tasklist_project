@@ -15,6 +15,8 @@ export function CompletedTaskList({ tasks }: TaskListProps) {
     //     />
     //   ))}
     // </div>
+    <div className="h-full">
     <EmptyTaskList title={"hi"} description={"hi"}/>
+    </div>
   );
 }

@@ -37,6 +37,7 @@
   }
   
   /* Enable smooth scrolling */
-  html {
+  html, body {
     scroll-behavior: smooth;
+    height:100%
   }

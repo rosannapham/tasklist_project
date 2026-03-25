@@ -1,15 +1,19 @@
 import { EmptyTaskListProps } from "@/types/tasks.types";
-import { Box, Container, Section } from "@radix-ui/themes";
+import { Box, Container, Section, Text } from "@radix-ui/themes";
+import { Fullscreen } from "lucide-react";
 
 export function EmptyTaskList({ title, description}: EmptyTaskListProps) {
 
     return (
-        <div className="h-full w-full flex items-center justify-center">
-        <Box
-         className="w-full h-full border-2 border-dashed border-gray-400 rounded-xl flex items-center justify-center">
-    
-          
-    </Box>
-    </div>
+
+        <Container className="h-full">
+  <Box className="w-full h-full border-2 border-dashed border-gray-400 rounded-xl flex items-center justify-center">
+  <Container className="h-full">
+ 
+        <Section height={"full"}></Section>
+
+  </Container>
+</Box>
+</Container>
     );
   }
