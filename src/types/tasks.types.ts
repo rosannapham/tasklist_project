@@ -48,7 +48,5 @@ export interface TaskListProps {
   export interface TaskStateProps {
     title: string
     description: string
-    onClick: () => void;
-    icon?: React.ReactNode
-    buttonLabel: string
+    actions?: React.ReactNode
   }
