@@ -1,8 +1,9 @@
-import { Playground } from "@/components/Playground";
+
+import { TaskList } from "@/components/TaskList";
 
 const Page = () => (
   <main>
-    <Playground />
+    <TaskList/>
   </main>
 );
 
