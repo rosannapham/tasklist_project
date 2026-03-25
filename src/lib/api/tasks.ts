@@ -1,5 +1,5 @@
-import { TasksApiResponse, Task } from "@/types/tasks.types";
-import { removeEmptyTaskCategories } from "@/utils/transformer";
+import { TasksApiResponse, Task, TasksResponse } from "@/types/tasks.types";
+import { removeEmptyTaskCategories, transformTasksFromApi } from "@/utils/transformer";
 
 export const tasksApi = {
   async getAllTasks(): Promise<TasksApiResponse> {
@@ -23,7 +23,7 @@ export const tasksApi = {
     }
   },
 
-  async getPendingTasks(): Promise<TasksApiResponse> {
+  async getPendingTasks(): Promise<TasksResponse> {
     try {
       const response = await fetch("/api/tasks/pending", {
         method: "GET",
@@ -39,7 +39,7 @@ export const tasksApi = {
       const data = await response.json();
       const tasks = removeEmptyTaskCategories(data.tasks);
       const totalCount = data.taskCount;
-      return { tasks: tasks, taskCount: totalCount };
+      return { tasks: transformTasksFromApi(tasks), taskCount: totalCount };
     } catch (error) {
       console.error("Failed to fetch tasks:", error);
       throw error;

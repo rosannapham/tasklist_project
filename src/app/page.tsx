@@ -1,8 +1,9 @@
 import { TaskList } from "@/components/TaskList";
+import TasksPage from "@/pages/tasks/page";
 
 const Page = () => (
   <main>
-    <TaskList />
+   <TasksPage/>
   </main>
 );
 
