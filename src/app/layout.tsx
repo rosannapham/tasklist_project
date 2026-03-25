@@ -5,9 +5,9 @@ import { inter } from "@/utils/fonts";
 import { Providers } from "./providers";
 
 import "@radix-ui/themes/styles.css";
-
-import "@/styles/colours.css";
-import "@/styles/themes.css";
+import "@/styles/globals.css"
+import "@/styles/colours.css"
+import "@/styles/themes.css"
 export const metadata: Metadata = {
   title: "Next.js + Radix Themes",
 };
