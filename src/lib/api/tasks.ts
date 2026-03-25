@@ -1,6 +1,7 @@
-import { TasksApiResponse, Task, TasksResponse } from "@/types/tasks.types";
+import { TasksApiResponse, Task, TasksResponse, TaskApi } from "@/types/tasks.types";
 import {
   removeEmptyTaskCategories,
+  transformTask,
   transformTasksFromApi,
 } from "@/utils/transformer";
 
@@ -49,9 +50,9 @@ export const tasksApi = {
     }
   },
 
-  async getCompletedTasks(): Promise<TasksApiResponse> {
+  async getCompletedTasks(): Promise<TasksResponse> {
     try {
-      const response = await fetch("/api/tasks/pending", {
+      const response = await fetch("/api/tasks/completed", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +64,7 @@ export const tasksApi = {
       }
 
       const data = await response.json();
-      return data;
+      return  { tasks: transformTasksFromApi(data.tasks), taskCount: data.totalCount };;
     } catch (error) {
       console.error("Failed to fetch tasks:", error);
       throw error;
@@ -83,9 +84,9 @@ export const tasksApi = {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data: Task = await response.json();
+      const data: TaskApi = await response.json();
 
-      return data;
+      return transformTask(data);
     } catch (error) {
       console.error("Failed to fetch task:", error);
       throw error;

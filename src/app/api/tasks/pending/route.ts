@@ -9,17 +9,23 @@ export async function GET() {
     const { data: overdue } = await supabase
       .from("tasks")
       .select("*")
-      .lt("due_date", today);
+      .eq('status', 'pending')
+      .lt("due_date", today)
+      .limit(100);;
 
     const { data: pendingToday } = await supabase
       .from("tasks")
       .select("*")
-      .eq("due_date", today);
+      .eq('status', 'pending')
+      .eq("due_date", today)
+      .limit(100);;
 
     const { data: dueSoon } = await supabase
       .from("tasks")
       .select("*")
-      .gt("due_date", today);
+      .eq('status', 'pending')
+      .gt("due_date", today)
+      .limit(100);;
 
     const { count: totalTasks } = await supabase
       .from("tasks")

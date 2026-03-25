@@ -1,7 +1,7 @@
 "use client";
 
 import { Task } from "@/types/tasks.types";
-import { Badge, Flex, Table, Text } from "@radix-ui/themes";
+import { Badge, Flex, Skeleton, Table, Text } from "@radix-ui/themes";
 
 interface TaskListProps {
   categoryName?: string;
@@ -13,10 +13,11 @@ export function TaskList({
   categoryName,
   tasks,
   hasSubheadings = false,
+  
 }: TaskListProps) {
   return (
     <Table.Root className="rounded-none">
-      {hasSubheadings && (
+      {hasSubheadings === true && (
         <Table.Header className="bg-gray-100">
           <Table.Row>
             <Table.ColumnHeaderCell >{categoryName}</Table.ColumnHeaderCell>

@@ -10,13 +10,13 @@ export function useTasks() {
   const [selectedTab, setSelectedTab] = useState<TaskTab>("pending");
   const [pendingTasks, setPendingTasks] = useState<TasksResponse>();
   const [completedTasks, setCompletedTasks] = useState<TasksResponse>();
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [accountingTask, setTask] = useState<Task>();
 
   const fetchPendingTasks = async () => {
     try {
-      setLoading(true);
+        setIsLoading(true);
       setError(null);
 
       const data = await tasksApi.getPendingTasks();
@@ -26,14 +26,31 @@ export function useTasks() {
       setError("Failed to load tasks");
       console.error("Error fetching tasks:", err);
     } finally {
-      setLoading(false);
+        setIsLoading(false);
+    }
+  };
+
+  const fetchCompletedTasks = async () => {
+    try {
+        setIsLoading(true);
+      setError(null);
+
+      const data = await tasksApi.getCompletedTasks();
+      setCompletedTasks(data);
+      console.log(data);
+    } catch (err) {
+      setError("Failed to load tasks");
+      console.error("Error fetching tasks:", err);
+    } finally {
+        setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchPendingTasks();
+    fetchCompletedTasks();
 
-    fetchPendingTasks();
+
   }, []);
 
   const handleTabChange = (tab: TaskTab) => setSelectedTab(tab);
@@ -41,5 +58,7 @@ export function useTasks() {
     selectedTab,
     handleTabChange,
     pendingTasks,
+    completedTasks,
+    isLoading
   };
 }
