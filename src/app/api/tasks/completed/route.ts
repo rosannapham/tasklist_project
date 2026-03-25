@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase/client";
-import { TaskApi } from "@/types/tasks.types";
+import { TaskApi, Tasks } from "@/types/tasks.types";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -29,7 +29,7 @@ export async function GET() {
   
       return NextResponse.json({
         tasks: tasks,
-        count: completedTasks?.length || 0,
+        taskCount: completedTasks?.length || 0,
       });
   
     } catch (error) {

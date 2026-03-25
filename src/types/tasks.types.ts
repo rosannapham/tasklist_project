@@ -38,9 +38,17 @@ export interface TasksResponse{
 
 export interface TaskListProps {
     tasks: Tasks;
+    taskCount: number
   }
 
   export interface EmptyTaskListProps {
     title: string
     description: string
+  }
+  export interface TaskStateProps {
+    title: string
+    description: string
+    onClick: () => void;
+    icon?: React.ReactNode
+    buttonLabel: string
   }

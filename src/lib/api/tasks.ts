@@ -64,7 +64,7 @@ export const tasksApi = {
       }
 
       const data = await response.json();
-      return  { tasks: transformTasksFromApi(data.tasks), taskCount: data.totalCount };;
+      return  { tasks: transformTasksFromApi(data.tasks), taskCount: data.taskCount };;
     } catch (error) {
       console.error("Failed to fetch tasks:", error);
       throw error;

@@ -19,25 +19,11 @@ export function useTasks() {
         setIsLoading(true);
       setError(null);
 
-      const data = await tasksApi.getPendingTasks();
-      setPendingTasks(data);
-      console.log(data);
-    } catch (err) {
-      setError("Failed to load tasks");
-      console.error("Error fetching tasks:", err);
-    } finally {
-        setIsLoading(false);
-    }
-  };
+      const pendingTasksData = await tasksApi.getPendingTasks();
+      const completedTasksData = await tasksApi.getCompletedTasks();
+      setPendingTasks(pendingTasksData);
+      setCompletedTasks(completedTasksData);
 
-  const fetchCompletedTasks = async () => {
-    try {
-        setIsLoading(true);
-      setError(null);
-
-      const data = await tasksApi.getCompletedTasks();
-      setCompletedTasks(data);
-      console.log(data);
     } catch (err) {
       setError("Failed to load tasks");
       console.error("Error fetching tasks:", err);
@@ -48,9 +34,6 @@ export function useTasks() {
 
   useEffect(() => {
     fetchPendingTasks();
-    fetchCompletedTasks();
-
-
   }, []);
 
   const handleTabChange = (tab: TaskTab) => setSelectedTab(tab);
