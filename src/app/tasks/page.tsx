@@ -30,11 +30,11 @@ export default function TasksPage() {
           <div>
             {selectedTab === "pending" ? (
               <Skeleton loading={pendingLoading}>
-                <Text>`${pendingTasks?.taskCount ?? ""} Tasks` </Text>
+                <Text weight="medium" size="5">{pendingTasks?.taskCount ?? ""} Tasks </Text>
               </Skeleton>
             ) : (
               <Skeleton loading={pendingLoading}>
-                <Text>`${completedTasks?.taskCount ?? ""} Tasks`</Text>
+                <Text weight="medium" size="5">{completedTasks?.taskCount ?? ""} Tasks</Text>
               </Skeleton>
             )}
           </div>

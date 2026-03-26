@@ -62,7 +62,7 @@ export default function Page1({
               size="3"
               onClick={() => handleSelectCard(option.id)}
             >
-              <Text align="left" as="div" weight="regular" className="w-full">
+              <Text size="2" align="left" as="div" weight="regular" className="w-full">
                 {option.label}
               </Text>
             </Button>
@@ -74,7 +74,7 @@ export default function Page1({
               size="3"
               onClick={() => handleSelectCard(option.id)}
             >
-              <Text align="left" as="div" weight="regular" className="w-full">
+              <Text size="2" align="left" as="div" weight="regular" className="w-full">
                 {option.label}
               </Text>
             </Button>

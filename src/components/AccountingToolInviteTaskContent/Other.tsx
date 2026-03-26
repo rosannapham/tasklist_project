@@ -9,7 +9,7 @@ export function OtherOptionContent({
 }: OtherContentProps) {
   return (
     <TaskSectionContainer>
-      <Text as="div" size="3">
+      <Text as="div" size="2">
         What accounting tool does your company use?
       </Text>
       <TextArea

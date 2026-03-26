@@ -17,8 +17,8 @@ export function QuickBooksOptionContentPage1({
 }: PageContentProps) {
   return (
     <TaskSectionContainer>
-      <Text as="div" size="3" weight="bold">
-        Invite Novabook to Xero
+      <Text as="div" size="3" weight="medium">
+        Invite Novabook to Quickbooks
       </Text>
       <Text as="div" size="2" weight="regular">
         1. On Quickbooks, click the Settings icon (top right), then select

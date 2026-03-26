@@ -18,7 +18,7 @@ export function XeroOptionContentPage1({
 }: PageContentProps) {
   return (
     <TaskSectionContainer>
-      <Text as="div" size="3" weight="bold">
+      <Text as="div" size="3" weight="medium">
         Invite Novabook to Xero
       </Text>
       <Text as="div" size="2" weight="regular">
