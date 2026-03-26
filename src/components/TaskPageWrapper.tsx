@@ -5,12 +5,17 @@ import { TaskStatePage } from "./TaskStatePage";
 import { Button } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { Task } from "@/types/tasks.types";
 
 interface TaskPageWrapperProps {
-    children: React.ReactNode
+    children: (task:Task) => React.ReactNode
 }
 
-function TaskStateContainer({children}:TaskPageWrapperProps) {
+interface TaskContainerWrapperProps {
+    children:  React.ReactNode
+}
+
+function TaskStateContainer({children}:TaskContainerWrapperProps) {
     return ( <div className="h-screen p-6">{children}</div>)
 
 }
