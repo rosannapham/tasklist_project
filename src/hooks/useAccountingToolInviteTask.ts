@@ -11,10 +11,10 @@ export interface AccountingToolOptions {
     accountingTool: string
   }
 
-export function useAccountingToolInviteTask() {
-  const [task, setTask] = useState<Task>();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export function useAccountingToolInviteTask(task:Task) {
+ 
+  const [showErrorToast, setShowErrorToast] = useState<boolean>(false);
+  const [showSuccessToast, setShowSuccessToast] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const[checkboxCount, setCheckboxCount] = useState<number>(0)
@@ -47,26 +47,6 @@ export function useAccountingToolInviteTask() {
     4: {1: 2}
 
   }
-
-  const fetchTask = async () => {
-    try {
-        setLoading(true);
-      setError(null);
-
-      const data = await tasksApi.getTaskBySlug("accounting-tool-invite");
-      setTask(data)
-      console.log(data)
-
-
-    } catch (err) {
-      setError('Failed to load tasks');
-      console.error('Error fetching tasks:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {fetchTask() }, []);
 
   const handleSelectCard = (id: number) => {
     setSelectedId(id)
@@ -119,17 +99,25 @@ export function useAccountingToolInviteTask() {
         };
         await tasksApi.patchUpdateTaskbySlug(task.slug, update);
       
-        // Show success toast
-        // TODO: Add your success toast here
-        console.log("SUCCESS: Task completed successfully!");
+        
+        setShowSuccessToast(true)
       
-        // Navigate to tasks page
         router.push("/tasks");
       } catch (error) {
+        setShowErrorToast(true)
 
-        console.log("ERROR: Failed to complete task");
-      
       }
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setShowSuccessToast(false);
+    }, 3000);
+    return () => clearTimeout(timer)
+  },[showSuccessToast])
+
+  const handleCloseErrorToast =() => {
+    setShowErrorToast(false)
   }
 
   const handleBackButton = () => {
@@ -161,6 +149,9 @@ export function useAccountingToolInviteTask() {
     isPageValid: isPageValid(), 
     checkboxCount,
     handleTextChange, 
-    otherAccountingToolinput
+    otherAccountingToolinput,
+    handleCloseErrorToast,
+    showErrorToast,
+    showSuccessToast
 };
 }

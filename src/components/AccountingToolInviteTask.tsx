@@ -7,7 +7,8 @@ import { XeroOptionContentPage1, XeroOptionContentPage2 } from "./AccountingTool
 import { QuickBooksOptionContentPage1, QuickBooksOptionContentPage2 } from "./AccountingToolInviteTaskContent/Quickbook";
 import { OtherOptionContent } from "./AccountingToolInviteTaskContent/Other";
 import { NoAccountingToolOptionContent } from "./AccountingToolInviteTaskContent/NoAccoutingTool";
-import { ErrorToast, SuccessToast, Toast } from "./ui/Toast";
+import { ErrorToast, SuccessToast } from "./ui/Toast";
+import { Task } from "@/types/tasks.types";
 
 function EmptyContent() {
     return<></>
@@ -94,9 +95,8 @@ function Page2({ selectedId, handleCheckboxChange}: Page2Props) {
 }
 
 
-export function AccountingToolInviteTask() {
+export function AccountingToolInviteTask(task: Task) {
     const {
-        task,
         handleSelectCard, 
         selectedId, 
         options, 
@@ -106,9 +106,11 @@ export function AccountingToolInviteTask() {
         handleBackButton,
         handleCheckboxChange, 
         isPageValid, 
-        checkboxCount,
         handleTextChange,
-        otherAccountingToolinput } = useAccountingToolInviteTask();
+        otherAccountingToolinput, 
+        handleCloseErrorToast, 
+        showErrorToast, 
+        showSuccessToast} = useAccountingToolInviteTask(task);
 
         return (
             <>
@@ -157,8 +159,10 @@ export function AccountingToolInviteTask() {
                 />
               )}
             </FullScreenModal>
-            <SuccessToast message={"Task completed"}/>
-            {/* <ErrorToast message={"Task could not be completed. Try again later."} onClose={}/> */}
+            {showSuccessToast &&  <SuccessToast message={"Task completed"}/>}
+            {showErrorToast  && <ErrorToast message={"Task could not be completed. Try again later."} onClose={handleCloseErrorToast}/>}
+           
+            
             </>
           )
         }
