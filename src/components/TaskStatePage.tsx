@@ -13,7 +13,9 @@ export function TaskStatePage({ title, description, actions}: TaskStateProps) {
         <Text size="2" color="gray">
         {description}
         </Text>
+        <div className="mt-4">
         {actions}
+        </div>
     </Flex>
     </Box>
     );

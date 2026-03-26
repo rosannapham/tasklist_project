@@ -10,6 +10,10 @@ interface TaskPageWrapperProps {
     children: React.ReactNode
 }
 
+function TaskStateContainer({children}:TaskPageWrapperProps) {
+    return ( <div className="h-screen p-6">{children}</div>)
+
+}
 
 export function TaskPageWrapper({children}:TaskPageWrapperProps) {
     const { 
@@ -20,8 +24,8 @@ export function TaskPageWrapper({children}:TaskPageWrapperProps) {
         fetchTask
     } = useTask()
     const router = useRouter()
-    if (isLoading) return <LoadingContainer/>
-    if (!task || notFound) return (<div className="h-full"><TaskStatePage 
+    if (isLoading) return (<TaskStateContainer><LoadingContainer/></TaskStateContainer>)
+    if (!task || notFound) return (<TaskStateContainer><TaskStatePage 
         title={"This task can't be found."} 
         description={"The task you're trying to open doesn't exist, or the link may be out of date."} 
         actions = { 
@@ -30,8 +34,8 @@ export function TaskPageWrapper({children}:TaskPageWrapperProps) {
             </Button>
         }
         />
-        </div>)
-    if (isError) return <TaskStatePage 
+        </TaskStateContainer>)
+    if (isError) return (<TaskStateContainer><TaskStatePage 
     title={"Something went wrong loading this"} 
     description={"ID: 02458"} 
     actions = {
@@ -40,16 +44,18 @@ export function TaskPageWrapper({children}:TaskPageWrapperProps) {
                 </Button>
             }
     />
+    </TaskStateContainer>)
 
-    if (task.status == "completed") return <TaskStatePage 
+    if (task.status == "completed") return (<TaskStateContainer><TaskStatePage 
     title={"This task has already been completed"} 
     description={"It may have been completed by you or another member of your team"} 
     actions = { 
-                <Button color="gray" variant="soft" radius="full" highContrast onClick={() => {router.push(`/tasks`)}}>
+                <Button  color="gray" variant="soft" radius="full" highContrast onClick={() => {router.push(`/tasks`)}}>
                     View all tasks
                 </Button>
             }
     />
+    </TaskStateContainer>)
 
     return<>{children}</>
 
