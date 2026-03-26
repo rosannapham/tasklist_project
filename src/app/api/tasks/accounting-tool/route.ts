@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
+    console.log("method reached")
     const body = await req.json();
 
     const {
@@ -12,7 +13,7 @@ export async function POST(req: Request) {
         accounting_tool,
         other_tool,
         non_compatible_banks,
-    }: AccountingToolBodyRequest = body;
+    } = body;
     console.log("Data ", body)
 
     console.log("Data insert:", JSON.stringify(body, null, 2))

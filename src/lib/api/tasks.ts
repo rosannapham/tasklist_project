@@ -95,6 +95,7 @@ export const tasksApi = {
 
   async postSaveAccountingTool(tool: AccountingToolBodyRequest) {
     try {
+        console.log("sending")
         const res = await fetch("/api/tasks/accounting-tool", {
             method: "POST",
             headers: {
@@ -104,6 +105,8 @@ export const tasksApi = {
           });
           console.log("status"+ res.status)
           console.log("ok"+ res.ok)
+          const t = await res.text()
+          console.log ("t" + t)
       
      
     } catch (error) {
