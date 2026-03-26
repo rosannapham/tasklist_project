@@ -62,7 +62,7 @@ export function TaskPageWrapper({children}:TaskPageWrapperProps) {
     />
     </TaskStateContainer>)
 
-    return<>{children}</>
+    return<>{children(task)}</>
 
    
   }
