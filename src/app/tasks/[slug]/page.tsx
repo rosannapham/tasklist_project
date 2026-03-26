@@ -1,8 +1,10 @@
-import { LoadingContainer } from "@/components/LoadingContainer";
+
 import { Task } from "@/types/tasks.types";
+import { TaskPageWrapper } from "@/components/TaskPageWrapper";
+import { AccountingToolInvitePage } from "@/components/AccountingToolInvitePage";
 
 const TASK_COMPONENTS: Record<string, React.ComponentType<{task: Task}>> = {
-    'accounting-tool-invite': LoadingContainer
+    'accounting-tool-invite': AccountingToolInvitePage
 }
 
 function DefaultTaskContent({task}: {task: Task}) {
@@ -10,9 +12,6 @@ function DefaultTaskContent({task}: {task: Task}) {
         <div>default page</div>
     )
 }
-
-
-import { TaskPageWrapper } from "@/components/TaskPageWrapper";
 
 export default function DynamicTaskPage() {
 
