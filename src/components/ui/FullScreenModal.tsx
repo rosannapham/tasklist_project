@@ -1,7 +1,7 @@
 "use client";
 import * as Dialog from '@radix-ui/react-dialog';
 import { ArrowLeftIcon } from '@radix-ui/react-icons';
-import { Flex, IconButton, } from '@radix-ui/themes';
+import { Flex, IconButton, Text, } from '@radix-ui/themes';
 import { ReactNode } from 'react';
 
 interface FullScreenModalProps {
@@ -18,11 +18,8 @@ export function FullScreenModal ({
 }: FullScreenModalProps ) {
 
   return (
-<Dialog.Root open={true} >
-  <Dialog.Portal>
-    <Dialog.Overlay/>
 
-    <Dialog.Content className="fixed inset-0 z-50 flex items-center justify-center p-5">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-5">
       
       <div className="w-full h-full rounded-xl border border-gray-300  flex flex-col overflow-hidden bg-gray-100">
         <div className="border-b border-gray-200 min-h-[64px] bg-white p-6 ">
@@ -31,12 +28,12 @@ export function FullScreenModal ({
         <IconButton size="3" radius="full" variant="soft" color='gray' onClick={onClose}>
 		<ArrowLeftIcon width="18" height="18" />
 	    </IconButton>
-        
-            <Dialog.Title
+
+            <Text
               className="text-xl font-semibold m-0 text-gray-900"
             >
               {title}
-            </Dialog.Title>
+            </Text>
         </Flex>
         </div>
         <div
@@ -52,8 +49,7 @@ export function FullScreenModal ({
           </div>
         </div>
       </div>
-    </Dialog.Content>
-  </Dialog.Portal>
-</Dialog.Root>
+    </div>
+
   );
 };
