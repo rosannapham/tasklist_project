@@ -73,16 +73,31 @@ function Page1({ options, selectedId, handleSelectCard, handleCheckboxChange, ac
         <Text as="div" size="3" weight="bold" className="mb-4">
         Which accounting tool do you use?
       </Text>
-         {options.map((option) => {
-
-
-    return (
-        <Button color="gray" variant="surface" highContrast size="3" onClick={() => handleSelectCard(option.id)}>
-            <Text align="left" as="div" weight="regular" className="w-full">{option.label}</Text>
-		
-	</Button>
-    );
-  })}
+      {options.map((option) => {
+  return selectedId === option.id ? (
+    <Button
+      variant="outline"
+      size="3"
+      onClick={() => handleSelectCard(option.id)}
+    >
+      <Text align="left" as="div" weight="regular" className="w-full">
+        {option.label}
+      </Text>
+    </Button>
+  ) : (
+    <Button
+      color="gray"
+      variant="surface"
+      highContrast
+      size="3"
+      onClick={() => handleSelectCard(option.id)}
+    >
+      <Text align="left" as="div" weight="regular" className="w-full">
+        {option.label}
+      </Text>
+    </Button>
+  );
+})}
    </TaskSectionContainer>
 
    { getOptionContentPage1(selectedId, handleCheckboxChange, accountingInputValue, handleTextChange)}</div>)

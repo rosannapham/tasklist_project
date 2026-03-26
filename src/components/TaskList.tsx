@@ -36,8 +36,8 @@ export function TaskList({
       )}
       <Table.Body className="bg-[var(--novaBlack-1)]">
         {tasks.map((task) => (
-          <Table.Row key={task.id} onClick={() => router.push(`/tasks/${task.slug}`)}>
-            <Table.RowHeaderCell>
+          <Table.Row className="hover:bg-[var(--novaBlack-3)] active:bg-[var(--novaBlack-4)]" key={task.id} onClick={() => router.push(`/tasks/${task.slug}`)}>
+            <Table.RowHeaderCell >
               <Flex direction="column" gap="1">
                 <Text weight="medium">{task.name}</Text>
                 <Text size="1" className={`${categoryName=== "Overdue" ? "text-red-700" : "text-[var(--novaBlack-10)]"}`}>
