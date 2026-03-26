@@ -18,11 +18,9 @@ export function FullScreenModal ({
 }: FullScreenModalProps ) {
 
   return (
-
     <div className="fixed inset-0 z-50 flex items-center justify-center p-5">
-      
-      <div className="w-full h-full rounded-xl border border-gray-300  flex flex-col overflow-hidden bg-gray-100">
-        <div className="border-b border-gray-200 min-h-[64px] bg-white p-6 ">
+      <div className="w-full h-full rounded-xl border border-[var(--novaBlack-7)] flex flex-col overflow-hidden bg-[var(--novaBlack-2)]">
+        <div className="border-b border-[var(--novaBlack-5)] min-h-[64px] bg-[var(--novaBlack-1)] p-6 ">
      
         <Flex gap="3" align="center" direction="row" className='h-full' >
         <IconButton size="3" radius="full" variant="soft" color='gray' onClick={onClose}>
@@ -30,7 +28,7 @@ export function FullScreenModal ({
 	    </IconButton>
 
             <Text
-              className="text-xl font-semibold m-0 text-gray-900"
+              className="text-xl font-medium m-0 text-[var(--novaBlack-12)]"
             >
               {title}
             </Text>
@@ -41,7 +39,7 @@ export function FullScreenModal ({
         >
           {children}
         </div>
-        <div className="flex-shrink-0 border-t border-gray-200 min-h-[72px] p-6 bg-white">
+        <div className="flex-shrink-0 border-t border-[var(--novaBlack-5)] min-h-[72px] p-6 bg-white">
           <div
             className="flex justify-end items-center gap-3"
           >

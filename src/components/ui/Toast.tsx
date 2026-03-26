@@ -12,12 +12,12 @@ export function SuccessToast({ message }: ToastProps) {
         className="
           fixed bottom-4 left-1/2 transform -translate-x-1/2 
           z-[9999] 
-          bg-black px-4 py-3 rounded-full
+          bg-[var(--novaBlack-12)] px-4 py-3 rounded-full
           animate-in slide-in-from-bottom-2 duration-300 "
       >
         <div className="flex items-center justify-between gap-3">
         <CheckCircleIcon  color='white'/>
-          <span className="text-sm font-medium text-white ">
+          <span className="text-sm font-medium text-[var(--novaBlack-1)] ">
             {message}
           </span>
         </div>
@@ -35,7 +35,7 @@ export function SuccessToast({ message }: ToastProps) {
           animate-in slide-in-from-bottom-2 border border-black "
       >
         <div className="flex items-center justify-between gap-3">
-          <span className="text-sm font-medium text-white ">
+          <span className="text-sm font-medium text-[var(--novaBlack-1)] ">
             {message}
           </span>
           { onClose && 

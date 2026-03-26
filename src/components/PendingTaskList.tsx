@@ -2,6 +2,7 @@ import { TaskListProps } from "@/types/tasks.types";
 import { TaskList } from "./TaskList";
 import { getCategoryTitle } from "@/utils/transformer";
 import { TaskStatePage } from "./TaskStatePage";
+import { SuccessToast } from "./ui/Toast";
 
 
 export function PendingTasksList({ tasks, taskCount }: TaskListProps) {
@@ -15,7 +16,7 @@ export function PendingTasksList({ tasks, taskCount }: TaskListProps) {
         )
     }
   return (
-    <div className="rounded-xl overflow-hidden border-[var(--novaBlack-11)]">
+    <div className="rounded-xl overflow-hidden border border-[var(--novaBlack-8)]">
       {Object.entries(tasks).map(([category, taskList]) => (
         <TaskList
           tasks={taskList}

@@ -121,9 +121,9 @@ export function AccountingToolInviteTask({task} : {task: Task}) {
                 isPageValid ? (
                   <Button
                     onClick={handleActionButton}
-                    color="gray"
-                    variant="surface"
+                    variant="solid"
                     size="3"
+                    radius="full"
                   >
                     {getButtonText()}
                   </Button>
@@ -132,7 +132,8 @@ export function AccountingToolInviteTask({task} : {task: Task}) {
                     onClick={() => {}}
                     disabled
                     color="gray"
-                    variant="surface"
+                    radius="full"
+                    variant="soft"
                     size="3"
                     className="disabled:cursor-not-allowed disabled:opacity-50"
                   >

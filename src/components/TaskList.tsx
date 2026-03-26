@@ -1,7 +1,8 @@
 "use client";
 
 import { Task } from "@/types/tasks.types";
-import { Badge, Flex, Skeleton, Table, Text } from "@radix-ui/themes";
+import { Badge, Flex, Skeleton, Strong, Table, Text } from "@radix-ui/themes";
+import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 
 interface TaskListProps {
@@ -20,23 +21,29 @@ export function TaskList({
   return (
     <Table.Root className="rounded-none">
       {hasSubheadings === true && (
-        <Table.Header className="bg-gray-100">
+        <Table.Header className="bg-[var(--novaBlack-2)]">
           <Table.Row>
-            <Table.ColumnHeaderCell >{categoryName}</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell />
+            <Table.RowHeaderCell>
+                <Flex direction="row" gap="2">
+                <Strong>{categoryName}</Strong> 
+                <Text>{tasks.length}</Text>
+                </Flex>
+            </Table.RowHeaderCell>
+            <Table.RowHeaderCell>
+            </Table.RowHeaderCell>
           </Table.Row>
         </Table.Header>
       )}
-      <Table.Body className="bg-white">
+      <Table.Body className="bg-[var(--novaBlack-1)]">
         {tasks.map((task) => (
           <Table.Row key={task.id} onClick={() => router.push(`/tasks/${task.slug}`)}>
             <Table.RowHeaderCell>
               <Flex direction="column" gap="1">
                 <Text weight="medium">{task.name}</Text>
-                <Text size="1" color="gray">
-                  {task.dueDate}
+                <Text size="1" className={`${categoryName=== "Overdue" ? "text-red-700" : "text-[var(--novaBlack-10)]"}`}>
+                {dayjs(task.dueDate).format("DD MMMM YYYY")}
                   {task.completedAt
-                    ? ` (Completed on ${task.completedAt})`
+                    ? ` (Completed on ${dayjs(task.completedAt).format("DD MMMM YYYY")})`
                     : ""}
                 </Text>
               </Flex>
@@ -47,7 +54,7 @@ export function TaskList({
                 <Badge
                   radius="full"
                   color="gray"
-                  variant="outline"
+                  variant="surface"
                   highContrast
                 >
                   {task.category}

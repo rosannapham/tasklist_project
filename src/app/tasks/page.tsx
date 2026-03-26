@@ -9,15 +9,14 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import { Button, SegmentedControl, Skeleton, Text } from "@radix-ui/themes";
 
 export default function TasksPage() {
-  const { selectedTab, handleTabChange, pendingTasks, completedTasks, isLoading, error } = useTasks();
-  
+  const { selectedTab, handleTabChange, pendingTasks, completedTasks, isLoading, error, fetchPendingTasks } = useTasks();
   if (error)   return (
     <div className="h-full">
         
     <TaskStatePage title={"Something went wrong loading this"} 
     description={"ID: 02458"} 
     actions = {
-                <Button color="gray" variant="soft" radius="full" highContrast onClick={fetchTask}>
+                <Button color="gray" variant="soft" radius="full" highContrast onClick={() => fetchPendingTasks}>
                     <ReloadIcon/> Try again
                 </Button>
             }/>
