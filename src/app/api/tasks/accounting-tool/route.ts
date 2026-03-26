@@ -1,9 +1,9 @@
 import { supabase } from "@/lib/supabase/client";
 import { AccountingToolBodyRequest } from "@/types/tasks.types";
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     console.log("method reached")
     const body = await req.json();
@@ -14,24 +14,21 @@ export async function POST(req: Request) {
         other_tool,
         non_compatible_banks,
     } = body;
-    console.log("Data ", body)
-
-    console.log("Data insert:", JSON.stringify(body, null, 2))
+  
 
     const { data, error } = await supabase
       .from("accounting_tool")
-      .insert([
+      .insert(
         {
-            task_id,
-            accounting_tool,
-            other_tool,
-            non_compatible_banks,
-        },
-      ])
-      .select()
-      .single();
-console.log("data:" + data)
-console.log("error:" + error)
+            task_id: task_id,
+            accounting_tool: accounting_tool,
+            other_tool: other_tool,
+            non_compatible_banks : non_compatible_banks,
+        })
+        .select()
+        .single()
+  
+
     if (error) {
     
       return NextResponse.json(
