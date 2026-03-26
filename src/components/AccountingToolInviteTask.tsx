@@ -28,8 +28,8 @@ function XeroOptionContentPage1({handleCheckboxChange}: PageContentProps) {
       • If you use multi-currency bank accounts then select the <Strong>Comprehensive plan</Strong>
 		</Text>
 	</Flex>
-    <CheckboxCards.Root defaultValue={["0"]} size="1" onValueChange={(values) =>handleCheckboxChange(values[0])}>
-		<CheckboxCards.Item value="1" >I confirm I have created a Xero account.</CheckboxCards.Item>
+    <CheckboxCards.Root defaultValue={["1"]} size="1" onValueChange={(values) =>handleCheckboxChange(values[0])}>
+		<CheckboxCards.Item value="0" >I confirm I have created a Xero account.</CheckboxCards.Item>
 	</CheckboxCards.Root>
 
     <Text as="div" size="3" weight="regular" className="mb-4">
@@ -46,44 +46,68 @@ function XeroOptionContentPage1({handleCheckboxChange}: PageContentProps) {
       3. Click "Save Changes"
 		</Text>
 	</Flex>
-    <CheckboxCards.Root defaultValue={["0"]} size="1">
-		<CheckboxCards.Item value="1">I confirm I have added my Company Registration Number on Xero.</CheckboxCards.Item>
+    <CheckboxCards.Root defaultValue={["1"]} size="1"onValueChange={(values) =>handleCheckboxChange(values[0])}>
+		<CheckboxCards.Item value="0">I confirm I have added my Company Registration Number on Xero.</CheckboxCards.Item>
 	</CheckboxCards.Root>
       </TaskSectionContainer>
 
 }
-function XeroOptionContentPage2() {
+function XeroOptionContentPage2({handleCheckboxChange}: PageContentProps) {
     return<Text>Xero2</Text>
 }
 
 
-function QuickBooksOptionContentPage1() {
+function QuickBooksOptionContentPage1({handleCheckboxChange}: PageContentProps) {
     return<Text>Quickbooks</Text>
 }
-function QuickBooksOptionContentPage2() {
+function QuickBooksOptionContentPage2({handleCheckboxChange}: PageContentProps) {
     return<Text>Quickbooks2</Text>
 }
 
-function OtherOptionContent() {
+function OtherOptionContent({handleCheckboxChange}: PageContentProps) {
     return<Text>Other</Text>
 }
-function NoAccountingToolOptionContent() {
+function NoAccountingToolOptionContent({handleCheckboxChange}: PageContentProps) {
     return<Text>no tool</Text>
 }
 function EmptyContent() {
     return<></>
 }
-const OPTION_CONTENT_PAGE_1:  Record<number, React.ComponentType> = {
-    1:  XeroOptionContentPage1, 
-    2:  QuickBooksOptionContentPage1, 
-    3: OtherOptionContent,
-    4:  NoAccountingToolOptionContent
-}
-
-const OPTION_CONTENT_PAGE_2:  Record<number, React.ComponentType> = {
-    1:  XeroOptionContentPage2,
-    2: QuickBooksOptionContentPage2,
-}
+const getOptionContentPage1 = (
+    selectedId: number | null,
+    onCheckboxChange: (value: string) => void
+  ) => {
+    if (!selectedId) return <EmptyContent />;
+  
+    switch (selectedId) {
+      case 1:
+        return <XeroOptionContentPage1 handleCheckboxChange={onCheckboxChange} />;
+      case 2:
+        return <QuickBooksOptionContentPage1 handleCheckboxChange={onCheckboxChange}/>;
+      case 3:
+        return <OtherOptionContent handleCheckboxChange={onCheckboxChange}/>;
+      case 4:
+        return <NoAccountingToolOptionContent handleCheckboxChange={onCheckboxChange} />;
+      default:
+        return <EmptyContent />;
+    }
+  };
+  
+  const getOptionContentPage2 = (
+    selectedId: number | null,
+    onCheckboxChange: (value: string) => void
+  ) => {
+    if (!selectedId) return <EmptyContent />;
+  
+    switch (selectedId) {
+      case 1:
+        return <XeroOptionContentPage2 handleCheckboxChange={onCheckboxChange} />;
+      case 2:
+        return <QuickBooksOptionContentPage2 handleCheckboxChange={onCheckboxChange}/>;
+      default:
+        return <EmptyContent />;
+    }
+  };
 
 interface Page1Props {
     options : AccountingToolOptions[]
@@ -94,10 +118,10 @@ interface Page1Props {
 
 interface Page2Props {
     selectedId: number | null
+    handleCheckboxChange: (value: string) => void
 }
 
 function Page1({ options, selectedId, handleSelectCard, handleCheckboxChange}: Page1Props) {
-    const SelectedContentPage1 = selectedId ? OPTION_CONTENT_PAGE_1[selectedId] : EmptyContent
     return (<div className="space-y-6">
     <TaskSectionContainer>
           
@@ -116,17 +140,13 @@ function Page1({ options, selectedId, handleSelectCard, handleCheckboxChange}: P
   })}
    </TaskSectionContainer>
 
-  { SelectedContentPage1 && (
-    <SelectedContentPage1/>
-  )}</div>)
+   { getOptionContentPage1(selectedId, handleCheckboxChange)}</div>)
 }
 
-function Page2({ selectedId, }: Page2Props) {
-    const SelectedContentPage2 = selectedId ? OPTION_CONTENT_PAGE_2[selectedId] : EmptyContent
+function Page2({ selectedId, handleCheckboxChange}: Page2Props) {
+
    return (<>
-  { SelectedContentPage2 && (
-    <SelectedContentPage2/>
-  )}</>)
+  { getOptionContentPage2(selectedId, handleCheckboxChange)}</>)
 }
 
 
@@ -143,6 +163,8 @@ export function AccountingToolInviteTask() {
         handleCheckboxChange, 
         isPageValid, checkboxCount } = useAccountingToolInviteTask();
 
+        
+
 
     return (
     <FullScreenModal 
@@ -151,7 +173,7 @@ export function AccountingToolInviteTask() {
     actions ={<Button onClick = {handleActionButton}>{getButtonText()}</Button>}>
    
         {currentPage == 1 && <Page1 options={options} selectedId={selectedId} handleSelectCard={handleSelectCard} handleCheckboxChange={handleCheckboxChange}/>}
-        {currentPage ==2 && <Page2 selectedId={selectedId}/>}
+        {currentPage ==2 && <Page2 selectedId={selectedId} handleCheckboxChange={handleCheckboxChange}/>}
 <Text>{checkboxCount}</Text>
 
     </FullScreenModal>
