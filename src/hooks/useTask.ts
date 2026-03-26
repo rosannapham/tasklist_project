@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { tasksApi } from "@/lib/api/tasks";
 import { Task } from "@/types/tasks.types";
 
 export function useTask() {
-  const params = useParams();
-  const slug = params.slug as string;
+  const pathName = usePathname()
+  const slugFromPath = pathName.split('/').pop() || ''
+  const slug = slugFromPath as string 
 
   const [task, setTask] = useState<Task | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +21,8 @@ export function useTask() {
         setIsLoading(true);
         setIsError(false);
         setNotFound(false);
+        console.log(slug)
+        console.log("path" + pathName)
 
         const taskData = await tasksApi.getTaskBySlug(slug);
         setTask(taskData);
@@ -35,7 +38,10 @@ export function useTask() {
     }
 
     useEffect(() => {
+        if (slug && slug.trim() != ""){
+   
         fetchTask()
+        }
     },[slug])
 
 
