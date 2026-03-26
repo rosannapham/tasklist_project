@@ -98,7 +98,7 @@ export function XeroOptionContentPage1({
           </Flex>
         </Flex>
       </Card>
-      <Table.Root className="rounded-xl overflow-hidden border">
+      <Table.Root className="rounded-xl overflow-hidden border border-[var(--novaBlack-5)]">
         <Table.Body>
           <Table.Row>
             <Table.RowHeaderCell>

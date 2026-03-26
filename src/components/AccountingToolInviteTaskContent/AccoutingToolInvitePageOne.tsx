@@ -57,7 +57,6 @@ export default function Page1({
         {options.map((option) => {
           return selectedId === option.id ? (
             <Button
-              key={option.id}
               variant="outline"
               size="3"
               onClick={() => handleSelectCard(option.id)}
