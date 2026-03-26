@@ -113,7 +113,7 @@ But task list can't function indepedently, if one fails, both pages display fail
 
 choice: Having on use hook. 
 If I had used separate hooks for the “Pending” and “Completed” tabs, each hook would likely trigger a new fetch whenever the user switches tabs. This could lead to unnecessary network requests and a less efficient user experience.
-By using a single hook, the data is fetched once and shared across both tabs, avoiding redundant calls and improving performance.
+By using a single hook, the data is fetched once and shared across both tabs, avoiding redundant calls and improving performance but i had individual states managing loading and errors for seperation of concerns and retries will only fetch the individual task list if fails.
 In the future, this could be further improved by introducing React Query to handle caching and automatically refresh stale data.
 
 

@@ -88,3 +88,4 @@ export interface Page1Props {
     selectedId: number | null;
     handleCheckboxChange: (value: number) => void;
   }
+  

@@ -1,11 +1,12 @@
 "use client";
 import { TaskListProps } from "@/types/tasks.types";
 import { TaskStatePage } from "./TaskStatePage";
-import router from "next/router";
-import { Button } from "@radix-ui/themes";
 import { TaskList } from "./TaskList";
 
-export function CompletedTaskList({ tasks, taskCount }: TaskListProps) {
+export function CompletedTaskList({ tasks, taskCount, isLoading }: TaskListProps) {
+
+if (isLoading) return <LoadingTaskList/>
+
   if (taskCount == 0) {
     return (
       <div className="h-full">

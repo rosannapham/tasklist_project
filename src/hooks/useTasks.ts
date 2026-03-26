@@ -10,28 +10,47 @@ export function useTasks() {
   const [selectedTab, setSelectedTab] = useState<TaskTab>("pending");
   const [pendingTasks, setPendingTasks] = useState<TasksResponse>();
   const [completedTasks, setCompletedTasks] = useState<TasksResponse>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<boolean>(false);
+const [pendingLoading, setPendingLoading] = useState(true);
+const [completedLoading, setCompletedLoading] = useState(true);
 
-  const fetchPendingTasks = async () => {
-    try {
-        setIsLoading(true);
-      setError(false);
+const [pendingError, setPendingError] = useState<boolean>(false);
+const [completedError, setCompletedError] = useState<boolean>(false);
 
-      const pendingTasksData = await tasksApi.getPendingTasks();
-      const completedTasksData = await tasksApi.getCompletedTasks();
-      setPendingTasks(pendingTasksData);
-      setCompletedTasks(completedTasksData);
+const fetchPendingTasks = async () => {
+  try {
+    setPendingLoading(true);
+    setPendingError(false);
 
-    } catch (err) {
-      setError(true);
-    } finally {
-        setIsLoading(false);
-    }
-  };
+    const pendingTasksData = await tasksApi.getPendingTasks();
+    setPendingTasks(pendingTasksData);
+  } catch (err) {
+    setPendingError(true);
+  } finally {
+    setPendingLoading(false);
+  }
+};
+
+const fetchCompletedTasks = async () => {
+  try {
+    setCompletedLoading(true);
+    setCompletedError(false);
+
+    const completedTasksData = await tasksApi.getCompletedTasks();
+    setCompletedTasks(completedTasksData);
+  } catch (err) {
+    setCompletedError(true);
+  } finally {
+    setCompletedLoading(false);
+  }
+};
+
+const fetchAllTasks = async () => {
+    fetchPendingTasks(),
+    fetchCompletedTasks()
+};
 
   useEffect(() => {
-    fetchPendingTasks();
+    fetchAllTasks();
   }, []);
 
   const handleTabChange = (tab: TaskTab) => setSelectedTab(tab);
@@ -40,8 +59,11 @@ export function useTasks() {
     handleTabChange,
     pendingTasks,
     completedTasks,
-    isLoading,
-    error,
-    fetchPendingTasks
+    pendingLoading,
+    completedLoading,
+    pendingError,
+    completedError,
+    fetchPendingTasks,
+    fetchCompletedTasks
   };
 }

@@ -3,6 +3,7 @@
 import { CompletedTaskList } from "@/components/CompletedTaskList";
 import { LoadingTaskList } from "@/components/LoadingTaskList";
 import { PendingTasksList } from "@/components/PendingTaskList";
+import TaskListContainer from "@/components/TaskListContainer";
 import { TaskStatePage } from "@/components/TaskStatePage";
 import { useTasks } from "@/hooks/useTasks";
 import { ReloadIcon } from "@radix-ui/react-icons";
@@ -14,42 +15,28 @@ export default function TasksPage() {
     handleTabChange,
     pendingTasks,
     completedTasks,
-    isLoading,
-    error,
+    pendingLoading,
+    pendingError,
+    completedError,
+    completedLoading,
+    fetchCompletedTasks,
     fetchPendingTasks,
   } = useTasks();
-  if (error)
-    return (
-      <div className="h-full">
-        <TaskStatePage
-          title={"Something went wrong loading this"}
-          description={"ID: 02458"}
-          actions={
-            <Button
-              color="gray"
-              variant="soft"
-              radius="full"
-              highContrast
-              onClick={() => fetchPendingTasks}
-            >
-              <ReloadIcon /> Try again
-            </Button>
-          }
-        />
-      </div>
-    );
 
   return (
     <div className="w-full h-screen flex justify-center px-4 py-4">
       <div className="w-full max-w-2xl flex flex-col h-full">
         <div className="w-full flex justify-between items-center mb-4">
-          <Skeleton loading={isLoading}>
-            <Text>
+            <div>
               {selectedTab === "pending"
-                ? `${pendingTasks?.taskCount ?? ""} Tasks`
-                : `${completedTasks?.taskCount ?? ""} Tasks`}
-            </Text>
-          </Skeleton>
+                ?  <Skeleton loading={pendingLoading}>
+            <Text>`${pendingTasks?.taskCount ?? ""} Tasks`     </Text>
+            </Skeleton>
+                : <Skeleton loading={pendingLoading}>
+            <Text>`${completedTasks?.taskCount ?? ""} Tasks`</Text>
+            </Skeleton>
+            }     
+            </div>
           <SegmentedControl.Root
             value={selectedTab}
             onValueChange={handleTabChange}
@@ -65,23 +52,28 @@ export default function TasksPage() {
           </SegmentedControl.Root>
         </div>
         <div className="flex-1 overflow-auto">
-          {isLoading && <LoadingTaskList />}
 
-          {pendingTasks?.tasks && selectedTab === "pending" && (
+          {selectedTab === "pending" && (
+            <TaskListContainer isLoading={pendingLoading} isError={pendingError} fetchTask={fetchPendingTasks}>
+              {pendingTasks?.tasks &&(
             <div className="h-full">
               <PendingTasksList
                 tasks={pendingTasks.tasks}
-                taskCount={pendingTasks.taskCount}
-              />
+                taskCount={pendingTasks.taskCount}/>
             </div>
+              )}
+            </TaskListContainer>
           )}
-          {completedTasks?.tasks && selectedTab === "completed" && (
+             {selectedTab === "completed" && (
+            <TaskListContainer isLoading={completedLoading} isError={completedError} fetchTask={fetchCompletedTasks}>
+              {completedTasks?.tasks &&(
             <div className="h-full">
-              <CompletedTaskList
+              <PendingTasksList
                 tasks={completedTasks.tasks}
-                taskCount={completedTasks.taskCount}
-              />
+                taskCount={completedTasks.taskCount}/>
             </div>
+              )}
+            </TaskListContainer>
           )}
         </div>
       </div>
