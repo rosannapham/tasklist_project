@@ -4,6 +4,6 @@ import { FullScreenModal } from "./ui/FullScreenModal";
 
 export function AccountingToolInviteContent() {
 
-    return (<FullScreenModal><div>hi</div></FullScreenModal>
+    return (<FullScreenModal onClose={() => console.log("hi")} title={"title"}><div>hi</div></FullScreenModal>
     )
   }
