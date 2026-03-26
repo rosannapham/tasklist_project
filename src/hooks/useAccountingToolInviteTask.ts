@@ -96,23 +96,41 @@ export function useAccountingToolInviteTask() {
         setCurrentPage(2)
         setCheckboxCount(0)
     } else {
-        const input: AccountingToolBodyRequest = {
-            task_id: task.id,
-            accounting_tool:optionMap[selectedId],
-            other_tool: otherAccountingToolinput,
-            non_compatible_banks: missingBankInput
-        }
-        tasksApi.postSaveAccountingTool(input)
-
-        const update: TaskUpdateRequest = {
-            status: "completed",
-            completed_by: "you"
-        }
-        tasksApi.patchUpdateTaskbySlug(task.slug, update)
-        router.push(`/tasks`)
+        handleCompleteTask()
     }
   }
 
+  const handleCompleteTask = async () => {
+    if (!selectedId || !task) return;
+    try {
+        
+        const input: AccountingToolBodyRequest = {
+          task_id: task.id,
+          accounting_tool: optionMap[selectedId],
+          other_tool: otherAccountingToolinput,
+          non_compatible_banks: missingBankInput,
+        };
+      
+        await tasksApi.postSaveAccountingTool(input);
+      
+        const update: TaskUpdateRequest = {
+          status: "completed",
+          completed_by: "you",
+        };
+        await tasksApi.patchUpdateTaskbySlug(task.slug, update);
+      
+        // Show success toast
+        // TODO: Add your success toast here
+        console.log("SUCCESS: Task completed successfully!");
+      
+        // Navigate to tasks page
+        router.push("/tasks");
+      } catch (error) {
+
+        console.log("ERROR: Failed to complete task");
+      
+      }
+  }
 
   const handleBackButton = () => {
     if (selectedId && multiStepOptions.includes(selectedId) && currentPage === 2) {

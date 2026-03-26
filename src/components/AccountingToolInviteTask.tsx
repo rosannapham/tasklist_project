@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Card, CheckboxCards, Dialog, Flex, IconButton, Link, Separator, Strong, Table, Text, TextArea, TextField,  } from "@radix-ui/themes";
+import { Box, Button, Callout, Card, CheckboxCards, Dialog, Flex, IconButton, Link, Separator, Strong, Table, Text, TextArea, TextField,  } from "@radix-ui/themes";
 import { FullScreenModal } from "./ui/FullScreenModal";
 import { AccountingToolOptions, useAccountingToolInviteTask } from "@/hooks/useAccountingToolInviteTask";
 import { TaskSectionContainer } from "./ui/TaskSectionContainer";
@@ -157,7 +157,14 @@ export function AccountingToolInviteTask() {
                   handleCheckboxChange={handleCheckboxChange}
                 />
               )}
-          
+<Callout.Root role="alert">
+	<Callout.Icon>
+
+	</Callout.Icon>
+	<Callout.Text>
+		You will need admin privileges to install and access this application.
+	</Callout.Text>
+</Callout.Root>
             </FullScreenModal>
           )
         }
