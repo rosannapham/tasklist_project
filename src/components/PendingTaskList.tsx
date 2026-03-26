@@ -15,7 +15,7 @@ export function PendingTasksList({ tasks, taskCount }: TaskListProps) {
         )
     }
   return (
-    <div className="rounded-xl overflow-hidden border">
+    <div className="rounded-xl overflow-hidden border-[var(--novaBlack-11)]">
       {Object.entries(tasks).map(([category, taskList]) => (
         <TaskList
           tasks={taskList}
