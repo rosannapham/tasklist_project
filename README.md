@@ -96,3 +96,24 @@ The chosen approach was to include a name column for simplicity in the current i
 However, a more scalable long-term solution would be to introduce a separate table that maps task slugs to task names for centralised management of task definitions and allows the ability to add new task types via an endpoint.
 
 
+### Fetching pending/completed
+
+Options 
+
+- Two separate hooks (Pending & Completed)
+Each hook fetches its own data independently.
+More resilient: if one request fails, the other tab can still display data.
+Better separation of concerns.
+
+- Single hook for the Tasks page
+Centralised data fetching.
+Less state to manage.
+Simpler implementation.
+But task list can't function indepedently, if one fails, both pages display fail
+
+choice: Having on use hook. 
+If I had used separate hooks for the “Pending” and “Completed” tabs, each hook would likely trigger a new fetch whenever the user switches tabs. This could lead to unnecessary network requests and a less efficient user experience.
+By using a single hook, the data is fetched once and shared across both tabs, avoiding redundant calls and improving performance.
+In the future, this could be further improved by introducing React Query to handle caching and automatically refresh stale data.
+
+
