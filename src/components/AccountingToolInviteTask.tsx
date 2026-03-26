@@ -1,11 +1,52 @@
 "use client";
-import { Box, Button, Card, Dialog, Flex, Table, Text,  } from "@radix-ui/themes";
+import { Box, Button, Card, CheckboxCards, Dialog, Flex, Link, Strong, Table, Text,  } from "@radix-ui/themes";
 import { FullScreenModal } from "./ui/FullScreenModal";
 import { useRouter } from "next/navigation";
 import { AccountingToolOptions, useAccountingToolInviteTask } from "@/hooks/useAccountingToolInviteTask";
+import { TaskSectionContainer } from "./ui/TaskSectionContainer";
 
 function XeroOptionContentPage1() {
-    return<Text>Xero</Text>
+    return<TaskSectionContainer>      
+        <Text as="div" size="3" weight="bold" className="mb-4">
+    Set up Xero
+  </Text>
+  <Text as="div" size="3" weight="regular" className="mb-4">
+       1. Create a Xero Account
+      </Text>
+      <Flex direction="column" gap ="1">
+      <Text color="gray" size="1">
+      • Use <Link href='#'>Novabook's referral link</Link> for a document.
+		</Text>
+        <Text color="gray" size="1">
+      • The <Strong> Grow plan </Strong> is the best fit for most businesses.
+		</Text>
+        <Text color="gray" size="1">
+      • If you use multi-currency bank accounts then select the <Strong>Comprehensive plan</Strong>
+		</Text>
+	</Flex>
+    <CheckboxCards.Root defaultValue={["1"]} size="1">
+		<CheckboxCards.Item value="1">I confirm I have created a Xero account.</CheckboxCards.Item>
+	</CheckboxCards.Root>
+
+    <Text as="div" size="3" weight="regular" className="mb-4">
+       2. Add your Company Registration Number on Xero
+      </Text>
+      <Flex direction="column" gap ="1">
+      <Text color="gray" size="1">
+      1. Go to "Organisation Settings", then "Organisation details".
+		</Text>
+        <Text color="gray" size="1">
+      2. Under "Basic Information", add your Comapny Registration Number.
+		</Text>
+        <Text color="gray" size="1">
+      3. Click "Save Changes"
+		</Text>
+	</Flex>
+    <CheckboxCards.Root defaultValue={["1"]} size="1">
+		<CheckboxCards.Item value="1">I confirm I have added my Company Registration Number on Xero.</CheckboxCards.Item>
+	</CheckboxCards.Root>
+      </TaskSectionContainer>
+
 }
 function XeroOptionContentPage2() {
     return<Text>Xero2</Text>
@@ -47,15 +88,13 @@ interface Page1Props {
 }
 
 interface Page2Props {
- 
     selectedId: number | null
-
 }
 
 function Page1({ options, selectedId, handleSelectCard}: Page1Props) {
     const SelectedContentPage1 = selectedId ? OPTION_CONTENT_PAGE_1[selectedId] : EmptyContent
-    return (<>       <Box className="max-w-md mx-auto p-4 border rounded-lg bg-white">
-        <Flex direction="column" gap ="4" >
+    return (<div className="space-y-6">
+    <TaskSectionContainer>
           
         <Text as="div" size="3" weight="bold" className="mb-4">
         Which accounting tool do you use?
@@ -70,13 +109,11 @@ function Page1({ options, selectedId, handleSelectCard}: Page1Props) {
 	</Button>
     );
   })}
-    </Flex>
-    {selectedId}
-  </Box>
+   </TaskSectionContainer>
 
   { SelectedContentPage1 && (
     <SelectedContentPage1/>
-  )}</>)
+  )}</div>)
 }
 
 function Page2({ selectedId, }: Page2Props) {
@@ -89,7 +126,6 @@ function Page2({ selectedId, }: Page2Props) {
 
 
 export function AccountingToolInviteTask() {
-    const router = useRouter()
     const {task, handleSelectCard, selectedId, options, currentPage, handleActionButton, getButtonText, handleBackButton } = useAccountingToolInviteTask();
 
 
