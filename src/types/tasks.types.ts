@@ -62,9 +62,7 @@ export interface OtherContentProps {
    }
 
    export interface AccountingToolBodyRequest {
-    id: string
     task_id: string
-    created_at: string
     accounting_tool: string
     other_tool: string
     non_compatible_banks: string

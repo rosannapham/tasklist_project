@@ -13,8 +13,11 @@ export async function POST(req: Request) {
         other_tool,
         non_compatible_banks,
     }: AccountingToolBodyRequest = body;
+    console.log("Data ", body)
 
-    const { error } = await supabase
+    console.log("Data insert:", JSON.stringify(body, null, 2))
+
+    const { data, error } = await supabase
       .from("accounting_tool")
       .insert([
         {
@@ -26,7 +29,8 @@ export async function POST(req: Request) {
       ])
       .select()
       .single();
-
+console.log("data:" + data)
+console.log("error:" + error)
     if (error) {
     
       return NextResponse.json(
