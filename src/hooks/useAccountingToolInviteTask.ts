@@ -8,6 +8,7 @@ import {
   TaskUpdateRequest,
 } from "@/types/tasks.types";
 import { useRouter } from "next/navigation";
+import { useToast } from "./useToast";
 
 export interface AccountingToolOptions {
   id: number;
@@ -16,8 +17,6 @@ export interface AccountingToolOptions {
 }
 
 export function useAccountingToolInviteTask(task: Task) {
-  const [showErrorToast, setShowErrorToast] = useState<boolean>(false);
-  const [showSuccessToast, setShowSuccessToast] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [checkboxCount, setCheckboxCount] = useState<number>(0);
@@ -26,6 +25,7 @@ export function useAccountingToolInviteTask(task: Task) {
   const [missingBankInput, setMissingBankInput] = useState<string>("");
 
   const router = useRouter();
+  const {showSuccess, showError} = useToast()
 
   const options: AccountingToolOptions[] = [
     { id: 1, label: "Xero", accountingTool: "xero" },
@@ -104,24 +104,14 @@ export function useAccountingToolInviteTask(task: Task) {
       };
       await tasksApi.patchUpdateTaskbySlug(task.slug, update);
 
-      setShowSuccessToast(true);
+      showSuccess("Task completed")
 
       router.push("/tasks");
     } catch (error) {
-      setShowErrorToast(true);
-    }
+     showError("Task could not be completed. Try again later.")
   };
+}
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSuccessToast(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [showSuccessToast]);
-
-  const handleCloseErrorToast = () => {
-    setShowErrorToast(false);
-  };
 
   const handleBackButton = () => {
     if (
@@ -159,8 +149,5 @@ export function useAccountingToolInviteTask(task: Task) {
     checkboxCount,
     handleTextChange,
     otherAccountingToolinput,
-    handleCloseErrorToast,
-    showErrorToast,
-    showSuccessToast,
   };
 }

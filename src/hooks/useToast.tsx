@@ -5,7 +5,7 @@ import { SuccessToast, ErrorToast } from '@/components/ui/Toast';
 
 export function useToast() {
   const showSuccess = (message: string) => {
-    toast.custom((t) => (
+    toast.custom(
         <SuccessToast
           message={message}/>
       ),
@@ -13,7 +13,7 @@ export function useToast() {
         duration: 3000,
         position: 'bottom-center',
       }
-    );
+  
   };
 
   const showError = (message: string) => {
@@ -27,7 +27,7 @@ export function useToast() {
         position: 'bottom-center',
       }
     );
-  };
+  }; 
 
   return { showSuccess, showError };
 }

@@ -8,6 +8,7 @@ import "@radix-ui/themes/styles.css";
 import "@/styles/colours.css";
 import "@/styles/themes.css";
 import "@/styles/globals.css";
+import { Toaster } from "react-hot-toast";
 export const metadata: Metadata = {
   title: "Next.js + Radix Themes",
 };
@@ -20,6 +21,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
   >
     <body>
       <Providers>{children}</Providers>
+      <Toaster position="bottom-center"/>
     </body>
   </html>
 );
