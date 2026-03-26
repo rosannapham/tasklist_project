@@ -5,7 +5,11 @@ import { useRouter } from "next/navigation";
 import { AccountingToolOptions, useAccountingToolInviteTask } from "@/hooks/useAccountingToolInviteTask";
 import { TaskSectionContainer } from "./ui/TaskSectionContainer";
 
-function XeroOptionContentPage1() {
+interface PageContentProps {
+    handleCheckboxChange: (value: string) => void
+}
+
+function XeroOptionContentPage1({handleCheckboxChange}: PageContentProps) {
     return<TaskSectionContainer>      
         <Text as="div" size="3" weight="bold" className="mb-4">
     Set up Xero
@@ -24,8 +28,8 @@ function XeroOptionContentPage1() {
       • If you use multi-currency bank accounts then select the <Strong>Comprehensive plan</Strong>
 		</Text>
 	</Flex>
-    <CheckboxCards.Root defaultValue={["1"]} size="1">
-		<CheckboxCards.Item value="1">I confirm I have created a Xero account.</CheckboxCards.Item>
+    <CheckboxCards.Root defaultValue={["0"]} size="1" onValueChange={(values) =>handleCheckboxChange(values[0])}>
+		<CheckboxCards.Item value="1" >I confirm I have created a Xero account.</CheckboxCards.Item>
 	</CheckboxCards.Root>
 
     <Text as="div" size="3" weight="regular" className="mb-4">
@@ -42,7 +46,7 @@ function XeroOptionContentPage1() {
       3. Click "Save Changes"
 		</Text>
 	</Flex>
-    <CheckboxCards.Root defaultValue={["1"]} size="1">
+    <CheckboxCards.Root defaultValue={["0"]} size="1">
 		<CheckboxCards.Item value="1">I confirm I have added my Company Registration Number on Xero.</CheckboxCards.Item>
 	</CheckboxCards.Root>
       </TaskSectionContainer>
@@ -85,13 +89,14 @@ interface Page1Props {
     options : AccountingToolOptions[]
     selectedId: number | null
     handleSelectCard: (id: number) => void
+    handleCheckboxChange: (value: string) => void
 }
 
 interface Page2Props {
     selectedId: number | null
 }
 
-function Page1({ options, selectedId, handleSelectCard}: Page1Props) {
+function Page1({ options, selectedId, handleSelectCard, handleCheckboxChange}: Page1Props) {
     const SelectedContentPage1 = selectedId ? OPTION_CONTENT_PAGE_1[selectedId] : EmptyContent
     return (<div className="space-y-6">
     <TaskSectionContainer>
@@ -126,7 +131,17 @@ function Page2({ selectedId, }: Page2Props) {
 
 
 export function AccountingToolInviteTask() {
-    const {task, handleSelectCard, selectedId, options, currentPage, handleActionButton, getButtonText, handleBackButton } = useAccountingToolInviteTask();
+    const {
+        task,
+        handleSelectCard, 
+        selectedId, 
+        options, 
+        currentPage, 
+        handleActionButton, 
+        getButtonText, 
+        handleBackButton,
+        handleCheckboxChange, 
+        isPageValid, checkboxCount } = useAccountingToolInviteTask();
 
 
     return (
@@ -135,8 +150,9 @@ export function AccountingToolInviteTask() {
     title={"Invite Novabook to your accounting tool"} 
     actions ={<Button onClick = {handleActionButton}>{getButtonText()}</Button>}>
    
-        {currentPage == 1 && <Page1 options={options} selectedId={selectedId} handleSelectCard={handleSelectCard }/>}
+        {currentPage == 1 && <Page1 options={options} selectedId={selectedId} handleSelectCard={handleSelectCard} handleCheckboxChange={handleCheckboxChange}/>}
         {currentPage ==2 && <Page2 selectedId={selectedId}/>}
+<Text>{checkboxCount}</Text>
 
     </FullScreenModal>
     )

@@ -18,6 +18,7 @@ export function useAccountingToolInviteTask() {
   const [error, setError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const[checkboxCount, setCheckboxCount] = useState<number>(0)
 
   const router = useRouter()
 
@@ -31,6 +32,17 @@ export function useAccountingToolInviteTask() {
 
   const multiStepOptions = [1,2]
   const singleStepOtions = [3,4]
+
+  const requiredChexboxCount : {[optionId: number] :{ [page:number] :number}} = {
+    1: { 1: 1,
+        2: 2 },
+    2: {1: 1,
+        2: 1
+     },
+    3: {1: 0},
+    4: {1: 2}
+
+  }
 
   const fetchTask = async () => {
     try {
@@ -54,6 +66,20 @@ export function useAccountingToolInviteTask() {
 
   const handleSelectCard = (id: number) => {
     setSelectedId(id)
+    setCheckboxCount(0)
+  }
+
+  const handleCheckboxChange = (value: string) => {
+    const numericValue = Number(value);
+    setCheckboxCount((prev) => prev + (numericValue === 1 ? 1 : -1));
+  };
+
+  const isPageValid = (): boolean => {
+    if (!selectedId) return false;
+    const requiredCount = requiredChexboxCount?.[selectedId]?.[currentPage]
+    return checkboxCount === requiredCount
+
+
   }
 
   const getButtonText = (): string => { 
@@ -79,5 +105,5 @@ export function useAccountingToolInviteTask() {
 
 
   return {
-    task, selectedId, handleSelectCard, options, currentPage, getButtonText, handleActionButton, handleBackButton};
+    task, selectedId, handleSelectCard, options, currentPage, getButtonText, handleActionButton, handleBackButton, handleCheckboxChange, isPageValid, checkboxCount};
 }
