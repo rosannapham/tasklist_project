@@ -3,10 +3,7 @@ import { TaskListProps } from "@/types/tasks.types";
 import { TaskStatePage } from "./TaskStatePage";
 import { TaskList } from "./TaskList";
 
-export function CompletedTaskList({ tasks, taskCount, isLoading }: TaskListProps) {
-
-if (isLoading) return <LoadingTaskList/>
-
+export function CompletedTaskList({ tasks, taskCount }: TaskListProps) {
   if (taskCount == 0) {
     return (
       <div className="h-full">
@@ -20,8 +17,9 @@ if (isLoading) return <LoadingTaskList/>
 
   return (
     <div className=" rounded-xl overflow-hidden border border-[var(--novaBlack-8)]">
-      {Object.entries(tasks).map(([category, taskList]) => (
+      {Object.entries(tasks).map(([category, taskList], idx) => (
         <TaskList
+          key={idx}
           tasks={taskList}
           categoryName={category}
           hasSubheadings={false}

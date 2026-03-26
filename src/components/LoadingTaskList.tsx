@@ -6,7 +6,7 @@ export function LoadingTaskList() {
     <Table.Root variant="surface">
       <Table.Body>
         {skeletonRows.map((_, index) => (
-          <Table.Row>
+          <Table.Row key={index}>
             <Table.RowHeaderCell>
               <Flex direction="column" gap="1">
                 <div className="rounded-full">
@@ -21,7 +21,6 @@ export function LoadingTaskList() {
                 </Text>
               </Flex>
             </Table.RowHeaderCell>
-
             <Table.Cell>
               <Flex justify="end" align="center" style={{ height: "100%" }}>
                 <Skeleton>

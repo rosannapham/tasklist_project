@@ -27,16 +27,17 @@ export default function TasksPage() {
     <div className="w-full h-screen flex justify-center px-4 py-4">
       <div className="w-full max-w-2xl flex flex-col h-full">
         <div className="w-full flex justify-between items-center mb-4">
-            <div>
-              {selectedTab === "pending"
-                ?  <Skeleton loading={pendingLoading}>
-            <Text>`${pendingTasks?.taskCount ?? ""} Tasks`     </Text>
-            </Skeleton>
-                : <Skeleton loading={pendingLoading}>
-            <Text>`${completedTasks?.taskCount ?? ""} Tasks`</Text>
-            </Skeleton>
-            }     
-            </div>
+          <div>
+            {selectedTab === "pending" ? (
+              <Skeleton loading={pendingLoading}>
+                <Text>`${pendingTasks?.taskCount ?? ""} Tasks` </Text>
+              </Skeleton>
+            ) : (
+              <Skeleton loading={pendingLoading}>
+                <Text>`${completedTasks?.taskCount ?? ""} Tasks`</Text>
+              </Skeleton>
+            )}
+          </div>
           <SegmentedControl.Root
             value={selectedTab}
             onValueChange={handleTabChange}
@@ -52,26 +53,35 @@ export default function TasksPage() {
           </SegmentedControl.Root>
         </div>
         <div className="flex-1 overflow-auto">
-
           {selectedTab === "pending" && (
-            <TaskListContainer isLoading={pendingLoading} isError={pendingError} fetchTask={fetchPendingTasks}>
-              {pendingTasks?.tasks &&(
-            <div className="h-full">
-              <PendingTasksList
-                tasks={pendingTasks.tasks}
-                taskCount={pendingTasks.taskCount}/>
-            </div>
+            <TaskListContainer
+              isLoading={pendingLoading}
+              isError={pendingError}
+              fetchTask={fetchPendingTasks}
+            >
+              {pendingTasks?.tasks && (
+                <div className="h-full">
+                  <PendingTasksList
+                    tasks={pendingTasks.tasks}
+                    taskCount={pendingTasks.taskCount}
+                  />
+                </div>
               )}
             </TaskListContainer>
           )}
-             {selectedTab === "completed" && (
-            <TaskListContainer isLoading={completedLoading} isError={completedError} fetchTask={fetchCompletedTasks}>
-              {completedTasks?.tasks &&(
-            <div className="h-full">
-              <PendingTasksList
-                tasks={completedTasks.tasks}
-                taskCount={completedTasks.taskCount}/>
-            </div>
+          {selectedTab === "completed" && (
+            <TaskListContainer
+              isLoading={completedLoading}
+              isError={completedError}
+              fetchTask={fetchCompletedTasks}
+            >
+              {completedTasks?.tasks && (
+                <div className="h-full">
+                  <PendingTasksList
+                    tasks={completedTasks.tasks}
+                    taskCount={completedTasks.taskCount}
+                  />
+                </div>
               )}
             </TaskListContainer>
           )}

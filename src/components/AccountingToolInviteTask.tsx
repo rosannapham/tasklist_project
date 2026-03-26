@@ -1,9 +1,7 @@
 "use client";
-import {
-  Button,
-} from "@radix-ui/themes";
+import { Button } from "@radix-ui/themes";
 import { FullScreenModal } from "./ui/FullScreenModal";
-import { useAccountingToolInviteTask} from "@/hooks/useAccountingToolInviteTask";
+import { useAccountingToolInviteTask } from "@/hooks/useAccountingToolInviteTask";
 import Page2 from "./AccountingToolInviteTaskContent/AcountingToolInvitePageTwo";
 import Page1 from "./AccountingToolInviteTaskContent/AccoutingToolInvitePageOne";
 import { Task } from "@/types/tasks.types";
@@ -20,7 +18,7 @@ export function AccountingToolInviteTask({ task }: { task: Task }) {
     handleCheckboxChange,
     isPageValid,
     handleTextChange,
-    otherAccountingToolinput
+    otherAccountingToolinput,
   } = useAccountingToolInviteTask(task);
 
   return (

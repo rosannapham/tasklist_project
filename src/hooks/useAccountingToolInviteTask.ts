@@ -25,7 +25,7 @@ export function useAccountingToolInviteTask(task: Task) {
   const [missingBankInput, setMissingBankInput] = useState<string>("");
 
   const router = useRouter();
-  const {showSuccess, showError} = useToast()
+  const { showSuccess, showError } = useToast();
 
   const options: AccountingToolOptions[] = [
     { id: 1, label: "Xero", accountingTool: "xero" },
@@ -104,14 +104,13 @@ export function useAccountingToolInviteTask(task: Task) {
       };
       await tasksApi.patchUpdateTaskbySlug(task.slug, update);
 
-      showSuccess("Task completed")
+      showSuccess("Task completed");
 
       router.push("/tasks");
     } catch (error) {
-     showError("Task could not be completed. Try again later.")
+      showError("Task could not be completed. Try again later.");
+    }
   };
-}
-
 
   const handleBackButton = () => {
     if (

@@ -2,6 +2,7 @@ import { TaskListProps } from "@/types/tasks.types";
 import { TaskList } from "./TaskList";
 import { getCategoryTitle } from "@/utils/transformer";
 import { TaskStatePage } from "./TaskStatePage";
+import { LoadingTaskList } from "./LoadingTaskList";
 
 export function PendingTasksList({ tasks, taskCount }: TaskListProps) {
   if (taskCount == 0) {
@@ -16,8 +17,9 @@ export function PendingTasksList({ tasks, taskCount }: TaskListProps) {
   }
   return (
     <div className="rounded-xl overflow-hidden border border-[var(--novaBlack-8)]">
-      {Object.entries(tasks).map(([category, taskList]) => (
+      {Object.entries(tasks).map(([category, taskList], idx) => (
         <TaskList
+          key={idx}
           tasks={taskList}
           categoryName={getCategoryTitle(category)}
           hasSubheadings={true}
