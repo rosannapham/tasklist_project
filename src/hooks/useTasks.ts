@@ -42,6 +42,6 @@ export function useTasks() {
     completedTasks,
     isLoading,
     error,
-    fetchPendingTasks: fetchPendingTasks()
+    fetchPendingTasks
   };
 }
