@@ -20,6 +20,7 @@ Make sure to save connection variables in a .env.local
 Table schema in supabase:
 
 Task :
+```
 create table public.tasks (
   id uuid not null default gen_random_uuid (),
   status character varying not null default 'pending'::character varying,
@@ -32,8 +33,10 @@ create table public.tasks (
   task_name text not null,
   constraint tasks_pkey primary key (id)
 ) TABLESPACE pg_default;
+```
 
 Accounting tool
+```
 create table public.accounting_tool (
   task_id uuid null,
   created_at timestamp with time zone not null default now(),
@@ -44,6 +47,7 @@ create table public.accounting_tool (
   constraint accounting_tool_pkey primary key (id),
   constraint accounting_tool_task_id_fkey foreign KEY (task_id) references tasks (id)
 ) TABLESPACE pg_default;
+```
  
 Add RLS policies to each table to allow user to read, insert and post to the table. An Example is shown in the starter docs
 
