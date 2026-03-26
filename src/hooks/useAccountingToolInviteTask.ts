@@ -69,9 +69,8 @@ export function useAccountingToolInviteTask() {
     setCheckboxCount(0)
   }
 
-  const handleCheckboxChange = (value: string) => {
-    const numericValue = Number(value);
-    setCheckboxCount((prev) => prev + (numericValue === 1 ? 1 : -1));
+  const handleCheckboxChange = (value: number) => {
+    setCheckboxCount((prev) => prev + (value === 1 ? 1 : -1));
   };
 
   const isPageValid = (): boolean => {

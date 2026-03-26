@@ -6,7 +6,7 @@ import { AccountingToolOptions, useAccountingToolInviteTask } from "@/hooks/useA
 import { TaskSectionContainer } from "./ui/TaskSectionContainer";
 
 interface PageContentProps {
-    handleCheckboxChange: (value: string) => void
+    handleCheckboxChange: (value: number) => void
 }
 
 function XeroOptionContentPage1({handleCheckboxChange}: PageContentProps) {
@@ -28,8 +28,8 @@ function XeroOptionContentPage1({handleCheckboxChange}: PageContentProps) {
       • If you use multi-currency bank accounts then select the <Strong>Comprehensive plan</Strong>
 		</Text>
 	</Flex>
-    <CheckboxCards.Root defaultValue={["1"]} size="1" onValueChange={(values) =>handleCheckboxChange(values[0])}>
-		<CheckboxCards.Item value="0" >I confirm I have created a Xero account.</CheckboxCards.Item>
+    <CheckboxCards.Root defaultValue={[]} size="1" onValueChange={(values) =>handleCheckboxChange(values.length)}>
+		<CheckboxCards.Item value="1" >I confirm I have created a Xero account.</CheckboxCards.Item>
 	</CheckboxCards.Root>
 
     <Text as="div" size="3" weight="regular" className="mb-4">
@@ -46,8 +46,8 @@ function XeroOptionContentPage1({handleCheckboxChange}: PageContentProps) {
       3. Click "Save Changes"
 		</Text>
 	</Flex>
-    <CheckboxCards.Root defaultValue={["1"]} size="1"onValueChange={(values) =>handleCheckboxChange(values[0])}>
-		<CheckboxCards.Item value="0">I confirm I have added my Company Registration Number on Xero.</CheckboxCards.Item>
+    <CheckboxCards.Root defaultValue={[]} size="1"onValueChange={(values) =>handleCheckboxChange(values.length)}>
+		<CheckboxCards.Item value="2">I confirm I have added my Company Registration Number on Xero.</CheckboxCards.Item>
 	</CheckboxCards.Root>
       </TaskSectionContainer>
 
