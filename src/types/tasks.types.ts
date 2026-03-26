@@ -57,13 +57,19 @@ export interface PageContentProps {
 
 export interface OtherContentProps {
     accountingValueInput: string;
-     handleTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    handleTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
    
-   }
+}
 
-   export interface AccountingToolBodyRequest {
+export interface AccountingToolBodyRequest {
     task_id: string
     accounting_tool: string
     other_tool: string
     non_compatible_banks: string
-   }
+}
+
+export interface TaskUpdateRequest {
+    status: string
+    completed_at: string
+    completed_by: string
+}

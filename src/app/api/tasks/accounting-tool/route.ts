@@ -18,8 +18,7 @@ export async function POST(req: NextRequest) {
 
     const { data, error } = await supabase
       .from("accounting_tool")
-      .insert(
-        {
+      .insert({
             task_id: task_id,
             accounting_tool: accounting_tool,
             other_tool: other_tool,
@@ -32,7 +31,7 @@ export async function POST(req: NextRequest) {
     if (error) {
     
       return NextResponse.json(
-        { error: "Failed to create task" },
+        { error: error },
         { status: 500 }
       );
     }

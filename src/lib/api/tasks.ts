@@ -1,4 +1,4 @@
-import { TasksApiResponse, Task, TasksResponse, TaskApi, AccountingToolBodyRequest } from "@/types/tasks.types";
+import { TasksApiResponse, Task, TasksResponse, TaskApi, AccountingToolBodyRequest, TaskUpdateRequest } from "@/types/tasks.types";
 import {
   removeEmptyTaskCategories,
   transformTask,
@@ -113,6 +113,28 @@ export const tasksApi = {
         console.error("Failed to fetch task:", error);
         throw error;
     }
-   
+  },
+
+  async patchUpdateTaskbySlug(slug: string, body: TaskUpdateRequest): Promise<Task> {
+    try {
+      const response = await fetch(`/api/tasks/${slug}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data: TaskApi = await response.json();
+
+      return transformTask(data);
+    } catch (error) {
+      console.error("Failed to fetch task:", error);
+      throw error;
+    }
   },
 };

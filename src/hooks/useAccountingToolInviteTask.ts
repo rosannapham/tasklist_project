@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { tasksApi } from '@/lib/api/tasks';
-import {AccountingToolBodyRequest, Task } from '@/types/tasks.types';
+import {AccountingToolBodyRequest, Task, TaskUpdateRequest } from '@/types/tasks.types';
 import { useRouter } from 'next/navigation';
 
 export interface AccountingToolOptions {
@@ -103,9 +103,16 @@ export function useAccountingToolInviteTask() {
             non_compatible_banks: missingBankInput
         }
         tasksApi.postSaveAccountingTool(input)
+
+        const update: TaskUpdateRequest = {
+            status: "completed",
+            completed_by: "you"
+        }
+        tasksApi.patchUpdateTaskbySlug(task.slug, update)
         router.push(`/tasks`)
     }
   }
+
 
   const handleBackButton = () => {
     if (selectedId && multiStepOptions.includes(selectedId) && currentPage === 2) {

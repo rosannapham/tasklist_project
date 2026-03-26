@@ -42,19 +42,65 @@ export async function GET(
   
       if (error instanceof Error) {
 
-      
-  
-        // Return generic error with error message
         return NextResponse.json(
           { message: 'Failed to fetch events', error: error.message },
           { status: 500 }
         );
       }
   
-      // Handle unknown errors
       return NextResponse.json(
         { message: 'An unexpected error occurred' },
         { status: 500 }
       );
     }
+}
+export async function PATCH(req: NextRequest, { params }: RouteParams) {
+    try {
+    const body = await req.json()
+    const {slug} = await params
+
+    if (!slug || typeof slug !== 'string' || slug.trim() === '') {
+        return NextResponse.json(
+          { message: 'Invalid or missing slug parameter' },
+          { status: 400 }
+        );
+      }
+
+    const sanitizedSlug = slug.trim().toLowerCase();
+
+    const {
+        status,
+        completed_by
+    } = body;
+
+    const now = new Date().toISOString()
+  
+    const { data: task, error } = await supabase
+      .from("tasks")
+      .update({
+        status: status,
+        completed_at: now,
+        completed_by: completed_by
+      })
+      .eq('slug', sanitizedSlug)
+        .select()
+        .single()
+
+        if (error) {
+    
+            return NextResponse.json(
+              { error: error },
+              { status: 500 }
+            );
+          }
+      
+        return NextResponse.json(task);
+
+    } catch (error) {
+        return NextResponse.json(
+            { error: "Internal server error" },
+            { status: 500 }
+        );
+    }  
+
 }
