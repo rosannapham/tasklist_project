@@ -1,7 +1,7 @@
 import { Badge, Flex, Skeleton, Table, Text } from "@radix-ui/themes";
 
 export function LoadingTaskList() {
-    const skeletonRows = Array.from({ length: 8 });
+    const skeletonRows = Array.from({ length: 10 });
     return (
       <Table.Root variant="surface">
         <Table.Body>

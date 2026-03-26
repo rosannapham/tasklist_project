@@ -8,6 +8,7 @@ export function PendingTasksList({ tasks, taskCount }: TaskListProps) {
     if (taskCount == 0) {
         return (
             <div className="h-full">
+                
             <TaskStatePage title={"Nothing to do right now"} 
             description={"Novabook will notify you when action is required"}/>
             </div>

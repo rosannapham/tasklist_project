@@ -11,13 +11,13 @@ export function useTasks() {
   const [pendingTasks, setPendingTasks] = useState<TasksResponse>();
   const [completedTasks, setCompletedTasks] = useState<TasksResponse>();
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<boolean>(false);
   const [accountingTask, setTask] = useState<Task>();
 
   const fetchPendingTasks = async () => {
     try {
         setIsLoading(true);
-      setError(null);
+      setError(false);
 
       const pendingTasksData = await tasksApi.getPendingTasks();
       const completedTasksData = await tasksApi.getCompletedTasks();
@@ -25,8 +25,7 @@ export function useTasks() {
       setCompletedTasks(completedTasksData);
 
     } catch (err) {
-      setError("Failed to load tasks");
-      console.error("Error fetching tasks:", err);
+      setError(true);
     } finally {
         setIsLoading(false);
     }
@@ -42,6 +41,7 @@ export function useTasks() {
     handleTabChange,
     pendingTasks,
     completedTasks,
-    isLoading
+    isLoading,
+    error
   };
 }

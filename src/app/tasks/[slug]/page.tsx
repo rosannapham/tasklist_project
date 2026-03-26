@@ -8,7 +8,7 @@ const TASK_COMPONENTS: Record<string, React.ComponentType<{task: Task}>> = {
     'accounting-tool-invite': AccountingToolInviteTask
 }
 
-function DefaultTaskContent({task}: {task: Task}) {
+function DefaultTaskContent() {
     return (
         <div>default page</div>
     )

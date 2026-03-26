@@ -95,7 +95,7 @@ function Page2({ selectedId, handleCheckboxChange}: Page2Props) {
 }
 
 
-export function AccountingToolInviteTask(task: Task) {
+export function AccountingToolInviteTask({task} : {task: Task}) {
     const {
         handleSelectCard, 
         selectedId, 

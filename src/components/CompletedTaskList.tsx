@@ -20,7 +20,7 @@ export function CompletedTaskList({ tasks, taskCount }: TaskListProps) {
     }
 
   return (
-    <div className="rounded-xl overflow-hidden border">
+    <div className=" rounded-xl overflow-hidden border">
       {Object.entries(tasks).map(([category, taskList]) => (
         <TaskList
           tasks={taskList}

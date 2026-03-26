@@ -27,7 +27,7 @@ export function TaskList({
           </Table.Row>
         </Table.Header>
       )}
-      <Table.Body>
+      <Table.Body className="bg-white">
         {tasks.map((task) => (
           <Table.Row key={task.id} onClick={() => router.push(`/tasks/${task.slug}`)}>
             <Table.RowHeaderCell>
