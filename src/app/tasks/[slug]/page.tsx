@@ -8,7 +8,7 @@ const TASK_COMPONENTS: Record<string, React.ComponentType<{ task: Task }>> = {
 };
 
 function DefaultTaskContent() {
-  return <div>default page</div>;
+  return <div>This page has not been created yet.</div>;
 }
 
 export default function DynamicTaskPage() {
