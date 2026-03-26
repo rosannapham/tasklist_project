@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-
 import { tasksApi } from '@/lib/api/tasks';
 import { Task } from '@/types/tasks.types';
+import { useRouter } from 'next/navigation';
 
-interface AccountingToolOptions {
+export interface AccountingToolOptions {
     id: number;
     label: string;
   }
@@ -17,8 +17,11 @@ export function useAccountingToolInviteTask() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
-  
+  const router = useRouter()
+
+
   const options: AccountingToolOptions[] = [
     { id: 1, label: "Xero" },
     { id: 2, label: "QuickBooks" },
@@ -26,6 +29,8 @@ export function useAccountingToolInviteTask() {
     { id: 4, label: "I do not have an accounting tool" },
   ];
 
+  const multiStepOptions = [1,2]
+  const singleStepOtions = [3,4]
 
   const fetchTask = async () => {
     try {
@@ -51,8 +56,28 @@ export function useAccountingToolInviteTask() {
     setSelectedId(id)
   }
 
+  const getButtonText = (): string => { 
+    if (selectedId && singleStepOtions.includes(selectedId)) return "Complete Task";
+    return "Continue"
+  }
+
+  const handleActionButton = () => {
+    if (selectedId && multiStepOptions.includes(selectedId) && currentPage === 1) {
+        setCurrentPage(2)
+    } else {
+        router.push(`/tasks`)
+    }
+  }
+
+  const handleBackButton = () => {
+    if (selectedId && multiStepOptions.includes(selectedId) && currentPage === 2) {
+        setCurrentPage(1)
+    } else {
+        router.push(`/tasks`)
+    }
+  }
 
 
   return {
-    task, selectedId, handleSelectCard, options};
+    task, selectedId, handleSelectCard, options, currentPage, getButtonText, handleActionButton, handleBackButton};
 }

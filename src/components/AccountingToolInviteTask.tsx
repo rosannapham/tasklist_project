@@ -2,14 +2,21 @@
 import { Box, Button, Card, Dialog, Flex, Table, Text,  } from "@radix-ui/themes";
 import { FullScreenModal } from "./ui/FullScreenModal";
 import { useRouter } from "next/navigation";
-import { useAccountingToolInviteTask } from "@/hooks/useAccountingToolInviteTask";
+import { AccountingToolOptions, useAccountingToolInviteTask } from "@/hooks/useAccountingToolInviteTask";
 
-function XeroOptionContent() {
+function XeroOptionContentPage1() {
     return<Text>Xero</Text>
 }
+function XeroOptionContentPage2() {
+    return<Text>Xero2</Text>
+}
 
-function QuickBooksOptionContent() {
+
+function QuickBooksOptionContentPage1() {
     return<Text>Quickbooks</Text>
+}
+function QuickBooksOptionContentPage2() {
+    return<Text>Quickbooks2</Text>
 }
 
 function OtherOptionContent() {
@@ -21,21 +28,33 @@ function NoAccountingToolOptionContent() {
 function EmptyContent() {
     return<></>
 }
-const OPTION_CONTENT: Record<number, React.ComponentType> = {
-    1: XeroOptionContent,
-    2: QuickBooksOptionContent,
+const OPTION_CONTENT_PAGE_1:  Record<number, React.ComponentType> = {
+    1:  XeroOptionContentPage1, 
+    2:  QuickBooksOptionContentPage1, 
     3: OtherOptionContent,
-    4: NoAccountingToolOptionContent
+    4:  NoAccountingToolOptionContent
 }
 
+const OPTION_CONTENT_PAGE_2:  Record<number, React.ComponentType> = {
+    1:  XeroOptionContentPage2,
+    2: QuickBooksOptionContentPage2,
+}
 
-export function AccountingToolInviteTask() {
-    const router = useRouter()
-    const {task, handleSelectCard, selectedId, options } = useAccountingToolInviteTask();
-    const SelectedContent = selectedId ? OPTION_CONTENT[selectedId] : EmptyContent
-    return (
-    <FullScreenModal onClose={() => {router.push(`/tasks`)}} title={"Invite Novabook to your accounting tool"}>
-          <Box className="max-w-md mx-auto p-4 border rounded-lg bg-white">
+interface Page1Props {
+    options : AccountingToolOptions[]
+    selectedId: number | null
+    handleSelectCard: (id: number) => void
+}
+
+interface Page2Props {
+ 
+    selectedId: number | null
+
+}
+
+function Page1({ options, selectedId, handleSelectCard}: Page1Props) {
+    const SelectedContentPage1 = selectedId ? OPTION_CONTENT_PAGE_1[selectedId] : EmptyContent
+    return (<>       <Box className="max-w-md mx-auto p-4 border rounded-lg bg-white">
         <Flex direction="column" gap ="4" >
           
         <Text as="div" size="3" weight="bold" className="mb-4">
@@ -55,9 +74,33 @@ export function AccountingToolInviteTask() {
     {selectedId}
   </Box>
 
-  { SelectedContent && (
-    <SelectedContent/>
-  )}
+  { SelectedContentPage1 && (
+    <SelectedContentPage1/>
+  )}</>)
+}
+
+function Page2({ selectedId, }: Page2Props) {
+    const SelectedContentPage2 = selectedId ? OPTION_CONTENT_PAGE_2[selectedId] : EmptyContent
+   return (<>
+  { SelectedContentPage2 && (
+    <SelectedContentPage2/>
+  )}</>)
+}
+
+
+export function AccountingToolInviteTask() {
+    const router = useRouter()
+    const {task, handleSelectCard, selectedId, options, currentPage, handleActionButton, getButtonText, handleBackButton } = useAccountingToolInviteTask();
+
+
+    return (
+    <FullScreenModal 
+    onClose={handleBackButton} 
+    title={"Invite Novabook to your accounting tool"} 
+    actions ={<Button onClick = {handleActionButton}>{getButtonText()}</Button>}>
+   
+        {currentPage == 1 && <Page1 options={options} selectedId={selectedId} handleSelectCard={handleSelectCard }/>}
+        {currentPage ==2 && <Page2 selectedId={selectedId}/>}
 
     </FullScreenModal>
     )
