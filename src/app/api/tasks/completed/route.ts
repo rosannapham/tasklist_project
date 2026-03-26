@@ -16,7 +16,6 @@ export async function GET() {
   
   
       if (error) {
-        console.error('Database error:', error);
         return NextResponse.json(
           { error: 'Failed to fetch tasks' },
           { status: 500 }
@@ -33,7 +32,6 @@ export async function GET() {
       });
   
     } catch (error) {
-      console.error('Server error:', error);
       return NextResponse.json(
         { error: 'Internal server error' },
         { status: 500 }
