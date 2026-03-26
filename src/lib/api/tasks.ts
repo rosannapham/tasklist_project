@@ -94,18 +94,22 @@ export const tasksApi = {
   },
 
   async postSaveAccountingTool(tool: AccountingToolBodyRequest) {
-    const res = await fetch("/api/tasks/accounting-tool", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(tool),
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to create task");
+    try {
+        const res = await fetch("/api/tasks/accounting-tool", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(tool),
+          });
+          console.log("status"+ res.status)
+          console.log("ok"+ res.ok)
+      
+     
+    } catch (error) {
+        console.error("Failed to fetch task:", error);
+        throw error;
     }
-
-    return res.json();
+   
   },
 };
