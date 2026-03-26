@@ -13,12 +13,12 @@ export interface AccountingToolOptions {
 export function useAccountingToolInviteTask() {
     type TaskTab = "pending" | "completed"
   const [task, setTask] = useState<Task>();
-  const [completedTasks, setCompletedTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const[checkboxCount, setCheckboxCount] = useState<number>(0)
+  const [otherAccountingToolinput, setOtherAccountingToolinput] = useState("");
 
   const router = useRouter()
 
@@ -39,7 +39,7 @@ export function useAccountingToolInviteTask() {
     2: {1: 1,
         2: 1
      },
-    3: {1: 0},
+    3: {1: 1},
     4: {1: 2}
 
   }
@@ -82,13 +82,14 @@ export function useAccountingToolInviteTask() {
   }
 
   const getButtonText = (): string => { 
-    if (selectedId && singleStepOtions.includes(selectedId)) return "Complete Task";
+    if (selectedId && (singleStepOtions.includes(selectedId)) || currentPage === 2) return "Complete Task";
     return "Continue"
   }
 
   const handleActionButton = () => {
     if (selectedId && multiStepOptions.includes(selectedId) && currentPage === 1) {
         setCurrentPage(2)
+        setCheckboxCount(0)
     } else {
         router.push(`/tasks`)
     }
@@ -97,12 +98,32 @@ export function useAccountingToolInviteTask() {
   const handleBackButton = () => {
     if (selectedId && multiStepOptions.includes(selectedId) && currentPage === 2) {
         setCurrentPage(1)
+        setCheckboxCount(0)
     } else {
         router.push(`/tasks`)
     }
   }
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const input = e.target.value
+    setOtherAccountingToolinput(input);
+    if (input.trim() !== "") {setCheckboxCount(1)} 
+    else{setCheckboxCount(0)}
+  };
 
 
   return {
-    task, selectedId, handleSelectCard, options, currentPage, getButtonText, handleActionButton, handleBackButton, handleCheckboxChange, isPageValid: isPageValid(), checkboxCount};
+    task, 
+    selectedId, 
+    handleSelectCard, 
+    options, 
+    currentPage, 
+    getButtonText, 
+    handleActionButton, 
+    handleBackButton, 
+    handleCheckboxChange, 
+    isPageValid: isPageValid(), 
+    checkboxCount,
+    handleTextChange, 
+    otherAccountingToolinput
+};
 }
