@@ -7,7 +7,7 @@ import { XeroOptionContentPage1, XeroOptionContentPage2 } from "./AccountingTool
 import { QuickBooksOptionContentPage1, QuickBooksOptionContentPage2 } from "./AccountingToolInviteTaskContent/Quickbook";
 import { OtherOptionContent } from "./AccountingToolInviteTaskContent/Other";
 import { NoAccountingToolOptionContent } from "./AccountingToolInviteTaskContent/NoAccoutingTool";
-import { Toast } from "./ui/Toast";
+import { ErrorToast, SuccessToast, Toast } from "./ui/Toast";
 
 function EmptyContent() {
     return<></>
@@ -157,7 +157,8 @@ export function AccountingToolInviteTask() {
                 />
               )}
             </FullScreenModal>
-            <Toast type={"success"} message={"hi"}/>
+            <SuccessToast message={"Task completed"}/>
+            {/* <ErrorToast message={"Task could not be completed. Try again later."} onClose={}/> */}
             </>
           )
         }
