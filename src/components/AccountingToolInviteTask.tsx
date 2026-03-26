@@ -7,6 +7,7 @@ import { XeroOptionContentPage1, XeroOptionContentPage2 } from "./AccountingTool
 import { QuickBooksOptionContentPage1, QuickBooksOptionContentPage2 } from "./AccountingToolInviteTaskContent/Quickbook";
 import { OtherOptionContent } from "./AccountingToolInviteTaskContent/Other";
 import { NoAccountingToolOptionContent } from "./AccountingToolInviteTaskContent/NoAccoutingTool";
+import { Toast } from "./ui/Toast";
 
 function EmptyContent() {
     return<></>
@@ -109,10 +110,8 @@ export function AccountingToolInviteTask() {
         handleTextChange,
         otherAccountingToolinput } = useAccountingToolInviteTask();
 
-        
-
-
         return (
+            <>
             <FullScreenModal
               onClose={handleBackButton}
               title="Invite Novabook to your accounting tool"
@@ -157,14 +156,8 @@ export function AccountingToolInviteTask() {
                   handleCheckboxChange={handleCheckboxChange}
                 />
               )}
-<Callout.Root role="alert">
-	<Callout.Icon>
-
-	</Callout.Icon>
-	<Callout.Text>
-		You will need admin privileges to install and access this application.
-	</Callout.Text>
-</Callout.Root>
             </FullScreenModal>
+            <Toast type={"success"} message={"hi"}/>
+            </>
           )
         }
