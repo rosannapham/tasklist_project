@@ -2,6 +2,7 @@
 
 import { Task } from "@/types/tasks.types";
 import { Badge, Flex, Skeleton, Table, Text } from "@radix-ui/themes";
+import { useRouter } from "next/navigation";
 
 interface TaskListProps {
   categoryName?: string;
@@ -15,6 +16,7 @@ export function TaskList({
   hasSubheadings = false,
   
 }: TaskListProps) {
+    const router = useRouter()
   return (
     <Table.Root className="rounded-none">
       {hasSubheadings === true && (
@@ -27,7 +29,7 @@ export function TaskList({
       )}
       <Table.Body>
         {tasks.map((task) => (
-          <Table.Row key={task.id}>
+          <Table.Row key={task.id} onClick={() => router.push(`/tasks/${task.slug}`)}>
             <Table.RowHeaderCell>
               <Flex direction="column" gap="1">
                 <Text weight="medium">{task.name}</Text>
