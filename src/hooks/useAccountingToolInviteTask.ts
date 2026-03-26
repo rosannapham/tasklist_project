@@ -104,5 +104,5 @@ export function useAccountingToolInviteTask() {
 
 
   return {
-    task, selectedId, handleSelectCard, options, currentPage, getButtonText, handleActionButton, handleBackButton, handleCheckboxChange, isPageValid, checkboxCount};
+    task, selectedId, handleSelectCard, options, currentPage, getButtonText, handleActionButton, handleBackButton, handleCheckboxChange, isPageValid: isPageValid(), checkboxCount};
 }

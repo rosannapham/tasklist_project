@@ -10,7 +10,27 @@ interface PageContentProps {
 }
 
 function XeroOptionContentPage1({handleCheckboxChange}: PageContentProps) {
-    return<TaskSectionContainer>      
+    return <Text>Xero</Text>
+
+}
+function XeroOptionContentPage2({handleCheckboxChange}: PageContentProps) {
+    return<Text>Xero2</Text>
+}
+
+
+function QuickBooksOptionContentPage1({handleCheckboxChange}: PageContentProps) {
+    return<Text>Quickbooks</Text>
+}
+function QuickBooksOptionContentPage2({handleCheckboxChange}: PageContentProps) {
+    return<Text>Quickbooks2</Text>
+}
+
+function OtherOptionContent({handleCheckboxChange}: PageContentProps) {
+    return<Text>Other</Text>
+}
+function NoAccountingToolOptionContent({handleCheckboxChange}: PageContentProps) {
+    return(
+        <TaskSectionContainer>      
         <Text as="div" size="3" weight="bold" className="mb-4">
     Set up Xero
   </Text>
@@ -50,32 +70,14 @@ function XeroOptionContentPage1({handleCheckboxChange}: PageContentProps) {
 		<CheckboxCards.Item value="2">I confirm I have added my Company Registration Number on Xero.</CheckboxCards.Item>
 	</CheckboxCards.Root>
       </TaskSectionContainer>
-
-}
-function XeroOptionContentPage2({handleCheckboxChange}: PageContentProps) {
-    return<Text>Xero2</Text>
-}
-
-
-function QuickBooksOptionContentPage1({handleCheckboxChange}: PageContentProps) {
-    return<Text>Quickbooks</Text>
-}
-function QuickBooksOptionContentPage2({handleCheckboxChange}: PageContentProps) {
-    return<Text>Quickbooks2</Text>
-}
-
-function OtherOptionContent({handleCheckboxChange}: PageContentProps) {
-    return<Text>Other</Text>
-}
-function NoAccountingToolOptionContent({handleCheckboxChange}: PageContentProps) {
-    return<Text>no tool</Text>
+    )
 }
 function EmptyContent() {
     return<></>
 }
 const getOptionContentPage1 = (
     selectedId: number | null,
-    onCheckboxChange: (value: string) => void
+    onCheckboxChange: (value: number) => void
   ) => {
     if (!selectedId) return <EmptyContent />;
   
@@ -95,7 +97,7 @@ const getOptionContentPage1 = (
   
   const getOptionContentPage2 = (
     selectedId: number | null,
-    onCheckboxChange: (value: string) => void
+    onCheckboxChange: (value: number) => void
   ) => {
     if (!selectedId) return <EmptyContent />;
   
@@ -113,12 +115,12 @@ interface Page1Props {
     options : AccountingToolOptions[]
     selectedId: number | null
     handleSelectCard: (id: number) => void
-    handleCheckboxChange: (value: string) => void
+    handleCheckboxChange: (value: number) => void
 }
 
 interface Page2Props {
     selectedId: number | null
-    handleCheckboxChange: (value: string) => void
+    handleCheckboxChange: (value: number) => void
 }
 
 function Page1({ options, selectedId, handleSelectCard, handleCheckboxChange}: Page1Props) {
@@ -166,16 +168,51 @@ export function AccountingToolInviteTask() {
         
 
 
-    return (
-    <FullScreenModal 
-    onClose={handleBackButton} 
-    title={"Invite Novabook to your accounting tool"} 
-    actions ={<Button onClick = {handleActionButton}>{getButtonText()}</Button>}>
-   
-        {currentPage == 1 && <Page1 options={options} selectedId={selectedId} handleSelectCard={handleSelectCard} handleCheckboxChange={handleCheckboxChange}/>}
-        {currentPage ==2 && <Page2 selectedId={selectedId} handleCheckboxChange={handleCheckboxChange}/>}
-<Text>{checkboxCount}</Text>
-
-    </FullScreenModal>
-    )
-  }
+        return (
+            <FullScreenModal
+              onClose={handleBackButton}
+              title="Invite Novabook to your accounting tool"
+              actions={
+                isPageValid ? (
+                  <Button
+                    onClick={handleActionButton}
+                    color="gray"
+                    variant="surface"
+                    size="3"
+                  >
+                    {getButtonText()}
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => {}}
+                    disabled
+                    color="gray"
+                    variant="surface"
+                    size="3"
+                    className="disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {getButtonText()}
+                  </Button>
+                )
+              }
+            >
+              {currentPage === 1 && (
+                <Page1
+                  options={options}
+                  selectedId={selectedId}
+                  handleSelectCard={handleSelectCard}
+                  handleCheckboxChange={handleCheckboxChange}
+                />
+              )}
+          
+              {currentPage === 2 && (
+                <Page2
+                  selectedId={selectedId}
+                  handleCheckboxChange={handleCheckboxChange}
+                />
+              )}
+          
+              <Text>{checkboxCount}</Text>
+            </FullScreenModal>
+          )
+        }
