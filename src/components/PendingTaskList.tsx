@@ -2,7 +2,6 @@ import { TaskListProps } from "@/types/tasks.types";
 import { TaskList } from "./TaskList";
 import { getCategoryTitle } from "@/utils/transformer";
 import { TaskStatePage } from "./TaskStatePage";
-import { SuccessToast } from "./ui/Toast";
 
 export function PendingTasksList({ tasks, taskCount }: TaskListProps) {
   if (taskCount == 0) {

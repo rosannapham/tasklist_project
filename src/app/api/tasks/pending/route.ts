@@ -33,7 +33,7 @@ export async function GET() {
 
     const pendingTasks: Tasks = {
       overdue: overdue || [],
-      pendingSoon: pendingToday || [],
+      pendingToday: pendingToday || [],
       dueSoon: dueSoon || [],
     };
 
