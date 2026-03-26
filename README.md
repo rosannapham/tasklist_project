@@ -51,7 +51,16 @@ create table public.accounting_tool (
  
 Add RLS policies to each table to allow user to read, insert and post to the table. An Example is shown in the starter docs
 
-
+ Data 
+ ```
+ id	status	created_at	slug	category	due_date	completed_at	completed_by	task_name
+ 0060adf5-2192-4e56-993e-ea0bf8ee3aae	completed	2026-03-25 16:38:56+00	setup-direct-debit	Onboarding	25/03/2026	2026-03-25 16:39:58+00	Me	Set up direct debit
+ 03d05776-808f-4685-961b-cf0c4acede67	pending	2026-03-26 21:45:15.318684+00	pension-scheme-setup	Payroll	30/04/2026			Pension scheme setup
+ 4139a5ae-e8d6-4ff7-a0dc-5a1b57176abd	pending	2026-03-22 18:56:08.137591+00	accounting-tool-invite	Connections	20/03/2026			Invite Novabook to your accounting tool
+ 6064e6b2-b891-470a-b825-a2ce74c7bcbe	pending	2026-03-22 18:54:52.448221+00	add-payroll-schedule	Payroll	21/03/2026			Add payroll schedule
+ c1b88c4e-24e6-42e0-a874-5c6ca36cd474	pending	2026-03-26 21:49:22.158581+00	previous-accountant-info	Onboarding	26/03/2026			Tell us about your previous accountant
+ e0487c13-a07e-4702-aff7-a4436c8573fb	pending	2026-03-24 15:20:50+00	vat-setup	VAT Return	23/04/2026			VAT setup
+ ```
 3. Run the development server:
 
 ```bash
