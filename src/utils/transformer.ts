@@ -46,12 +46,12 @@ export function transformTasksFromApi(tasksApi: TasksApi): Tasks {
 }
 
 export function getCategoryTitle(categoryName: string): string {
-    switch (categoryName) {
-      case "pendingSoon":
-        return "Due Soon";
-      case "overdue":
-        return "Overdue";
-      default:
-        return "Due Today";
-    }
+  switch (categoryName) {
+    case "pendingSoon":
+      return "Due Soon";
+    case "overdue":
+      return "Overdue";
+    default:
+      return "Due Today";
   }
+}

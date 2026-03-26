@@ -1,57 +1,57 @@
 @import "tailwindcss";
 
 .radix-themes {
-    /* Use pointer cursor for interactive elements */
-    --cursor-button: pointer;
-    --cursor-checkbox: pointer;
-    --cursor-disabled: default;
-    --cursor-link: pointer;
-    --cursor-menu-item: pointer;
-    --cursor-radio: pointer;
-    --cursor-slider-thumb: pointer;
-    --cursor-slider-thumb-active: pointer;
-    --cursor-switch: pointer;
-  
-    /* Use Inter as the default font family */
-    --default-font-family: var(--font-inter);
-  }
-  
-  /* Add minimalistic transition to interactive elements */
-  .transition,
-  .rt-BaseButton,
-  .rt-TabsTrigger,
-  .rt-Link,
-  .rt-TextFieldInput,
-  .rt-CheckboxButton,
-  .rt-BaseMenuItem {
-    transition-property: color, background-color, border-color,
-      text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
-      backdrop-filter;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
+  /* Use pointer cursor for interactive elements */
+  --cursor-button: pointer;
+  --cursor-checkbox: pointer;
+  --cursor-disabled: default;
+  --cursor-link: pointer;
+  --cursor-menu-item: pointer;
+  --cursor-radio: pointer;
+  --cursor-slider-thumb: pointer;
+  --cursor-slider-thumb-active: pointer;
+  --cursor-switch: pointer;
 
-  @keyframes pulse-colour {
-    0%, 100%{
-        color: var(--novaBlack-12);
-    }
-    50% {
-        color: var(--novaBlack-9)
-    }
-    
-  }
-  
-  .svg-pulse {
-    animation: pulse-colour 1.5s ease-in-out infinite
-  }
-  /* Makes containers to have a proper inline padding on all screens */
-  .rt-ContainerInner {
-    width: 92%;
-  }
-  
-  /* Enable smooth scrolling */
-  html, body {
-    scroll-behavior: smooth;
-    height:100%
-  }
+  /* Use Inter as the default font family */
+  --default-font-family: var(--font-inter);
+}
 
+/* Add minimalistic transition to interactive elements */
+.transition,
+.rt-BaseButton,
+.rt-TabsTrigger,
+.rt-Link,
+.rt-TextFieldInput,
+.rt-CheckboxButton,
+.rt-BaseMenuItem {
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+@keyframes pulse-colour {
+  0%,
+  100% {
+    color: var(--novaBlack-12);
+  }
+  50% {
+    color: var(--novaBlack-9);
+  }
+}
+
+.svg-pulse {
+  animation: pulse-colour 1.5s ease-in-out infinite;
+}
+/* Makes containers to have a proper inline padding on all screens */
+.rt-ContainerInner {
+  width: 92%;
+}
+
+/* Enable smooth scrolling */
+html,
+body {
+  scroll-behavior: smooth;
+  height: 100%;
+}

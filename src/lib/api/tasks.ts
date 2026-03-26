@@ -1,4 +1,11 @@
-import { TasksApiResponse, Task, TasksResponse, TaskApi, AccountingToolBodyRequest, TaskUpdateRequest } from "@/types/tasks.types";
+import {
+  TasksApiResponse,
+  Task,
+  TasksResponse,
+  TaskApi,
+  AccountingToolBodyRequest,
+  TaskUpdateRequest,
+} from "@/types/tasks.types";
 import {
   removeEmptyTaskCategories,
   transformTask,
@@ -64,7 +71,10 @@ export const tasksApi = {
       }
 
       const data = await response.json();
-      return  { tasks: transformTasksFromApi(data.tasks), taskCount: data.taskCount };;
+      return {
+        tasks: transformTasksFromApi(data.tasks),
+        taskCount: data.taskCount,
+      };
     } catch (error) {
       console.error("Failed to fetch tasks:", error);
       throw error;
@@ -95,27 +105,28 @@ export const tasksApi = {
 
   async postSaveAccountingTool(tool: AccountingToolBodyRequest) {
     try {
-        console.log("sending")
-        const res = await fetch("/api/tasks/accounting-tool", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(tool),
-          });
-          console.log("status"+ res.status)
-          console.log("ok"+ res.ok)
-          const t = await res.text()
-          console.log ("t" + t)
-      
-     
+      console.log("sending");
+      const res = await fetch("/api/tasks/accounting-tool", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tool),
+      });
+      console.log("status" + res.status);
+      console.log("ok" + res.ok);
+      const t = await res.text();
+      console.log("t" + t);
     } catch (error) {
-        console.error("Failed to fetch task:", error);
-        throw error;
+      console.error("Failed to fetch task:", error);
+      throw error;
     }
   },
 
-  async patchUpdateTaskbySlug(slug: string, body: TaskUpdateRequest): Promise<Task> {
+  async patchUpdateTaskbySlug(
+    slug: string,
+    body: TaskUpdateRequest,
+  ): Promise<Task> {
     try {
       const response = await fetch(`/api/tasks/${slug}`, {
         method: "PATCH",

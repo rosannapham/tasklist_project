@@ -16,18 +16,17 @@ export function useTasks() {
 
   const fetchPendingTasks = async () => {
     try {
-        setIsLoading(true);
+      setIsLoading(true);
       setError(false);
 
       const pendingTasksData = await tasksApi.getPendingTasks();
       const completedTasksData = await tasksApi.getCompletedTasks();
       setPendingTasks(pendingTasksData);
       setCompletedTasks(completedTasksData);
-
     } catch (err) {
       setError(true);
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -42,6 +41,6 @@ export function useTasks() {
     pendingTasks,
     completedTasks,
     isLoading,
-    error
+    error,
   };
 }

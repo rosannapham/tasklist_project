@@ -1,9 +1,8 @@
 import TasksPage from "./tasks/page";
 
-
 const Page = () => (
   <main className="h-screen">
-   <TasksPage/>
+    <TasksPage />
   </main>
 );
 
