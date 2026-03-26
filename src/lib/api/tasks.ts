@@ -1,4 +1,4 @@
-import { TasksApiResponse, Task, TasksResponse, TaskApi } from "@/types/tasks.types";
+import { TasksApiResponse, Task, TasksResponse, TaskApi, AccountingToolBodyRequest } from "@/types/tasks.types";
 import {
   removeEmptyTaskCategories,
   transformTask,
@@ -91,5 +91,21 @@ export const tasksApi = {
       console.error("Failed to fetch task:", error);
       throw error;
     }
+  },
+
+  async postSaveAccountingTool(tool: AccountingToolBodyRequest) {
+    const res = await fetch("/api/tasks/accounting-tool", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tool),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to create task");
+    }
+
+    return res.json();
   },
 };

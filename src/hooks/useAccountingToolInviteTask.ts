@@ -2,33 +2,37 @@
 
 import { useState, useEffect } from 'react';
 import { tasksApi } from '@/lib/api/tasks';
-import { Task } from '@/types/tasks.types';
+import {AccountingToolBodyRequest, Task } from '@/types/tasks.types';
 import { useRouter } from 'next/navigation';
 
 export interface AccountingToolOptions {
     id: number;
     label: string;
+    accountingTool: string
   }
 
 export function useAccountingToolInviteTask() {
-    type TaskTab = "pending" | "completed"
   const [task, setTask] = useState<Task>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const[checkboxCount, setCheckboxCount] = useState<number>(0)
-  const [otherAccountingToolinput, setOtherAccountingToolinput] = useState("");
+  const [otherAccountingToolinput, setOtherAccountingToolinput] = useState<string>("");
+  const [missingBankInput, setMissingBankInput] = useState<string>("");
 
   const router = useRouter()
 
-
   const options: AccountingToolOptions[] = [
-    { id: 1, label: "Xero" },
-    { id: 2, label: "QuickBooks" },
-    { id: 3, label: "Other" },
-    { id: 4, label: "I do not have an accounting tool" },
+    { id: 1, label: "Xero", accountingTool: "xero"},
+    { id: 2, label: "QuickBooks", accountingTool: "quickbooks"},
+    { id: 3, label: "Other", accountingTool: "other"},
+    { id: 4, label: "I do not have an accounting tool", accountingTool: "no_tool"},
   ];
+
+  const optionMap = Object.fromEntries(
+    options.map((opt) => [opt.id, opt.accountingTool])
+  );
 
   const multiStepOptions = [1,2]
   const singleStepOtions = [3,4]
@@ -87,10 +91,18 @@ export function useAccountingToolInviteTask() {
   }
 
   const handleActionButton = () => {
-    if (selectedId && multiStepOptions.includes(selectedId) && currentPage === 1) {
+    if (!selectedId || !task) return;
+    if ( multiStepOptions.includes(selectedId) && currentPage === 1) {
         setCurrentPage(2)
         setCheckboxCount(0)
     } else {
+        const input: AccountingToolBodyRequest = {
+            task_id: task.id,
+            accounting_tool:optionMap[selectedId],
+            other_tool: otherAccountingToolinput,
+            non_compatible_banks: missingBankInput
+        }
+        tasksApi.postSaveAccountingTool(input)
         router.push(`/tasks`)
     }
   }
