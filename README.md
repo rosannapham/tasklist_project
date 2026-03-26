@@ -1,47 +1,69 @@
-![Next.js + Radix Themes template](public/cover.jpg)
-
-This is a minimalistic [Next.js](https://nextjs.org/) + [Radix Themes](https://www.radix-ui.com/) template to bootstrap your next project with a modern design system.
-
-- **Next.js**: A React framework for building production-grade applications.
-- **Radix Themes**: An open-source component library optimized for fast development, easy maintenance, and accessibility.
-
-## Features ✨
-
-- Uses the latest **React 18** version.
-- Out of the box support for **TypeScript**.
-- **next/font**: Automatically optimize and load fonts from Google Fonts.
-- **next-themes**: Perfect Next.js dark mode in 2 lines of code. Support System preference and any other theme with no flashing.
-- **Prettier + ESLint** preconfigured with all recommended configs / plugins.
-- **Husky + Lint-Staged** pre-commit hooks to ensure code quality.
 
 ## Getting Started 🚀
 
 1. Install the dependencies:
 
 ```bash
-pnpm install
+npm install
 ```
 
-2. Run the development server:
-
-```bash
-pnpm dev
-```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. Connect with supabase
 
-## Learn More 📖
+Create a supabase database following the docs in 
+[docs](https://supabase.com/docs/guides/getting-started/quickstarts/nuxtjs)
 
-To learn more about Next.js, take a look at the following resources:
+Make sure to save connection variables in a .env.local
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Table schema in supabase:
 
-To learn more about Radix Themes, take a look at the following resources:
+Task :
+create table public.tasks (
+  id uuid not null default gen_random_uuid (),
+  status character varying not null default 'pending'::character varying,
+  created_at timestamp with time zone not null default now(),
+  slug character varying not null,
+  category character varying not null,
+  due_date date not null,
+  completed_at timestamp with time zone null,
+  completed_by character varying null,
+  task_name text not null,
+  constraint tasks_pkey primary key (id)
+) TABLESPACE pg_default;
 
-- [Radix Themes Documentation](https://www.radix-ui.com/themes/docs) - learn about Radix UI themes and API.
-- [Radix Themes Playground](https://www.radix-ui.com/themes/playground) - an interactive playground of Radix UI themes components.
+Accounting tool
+create table public.accounting_tool (
+  task_id uuid null,
+  created_at timestamp with time zone not null default now(),
+  accounting_tool character varying null,
+  other_tool character varying null,
+  non_compatible_banks text null,
+  id uuid not null default gen_random_uuid (),
+  constraint accounting_tool_pkey primary key (id),
+  constraint accounting_tool_task_id_fkey foreign KEY (task_id) references tasks (id)
+) TABLESPACE pg_default;
+ 
+Add RLS policies to each table to allow user to read, insert and post to the table. An Example is shown in the starter docs
 
-Check out [Next.js GitHub repository](https://github.com/vercel/next.js/) and [Radix Themes GitHub repository](https://github.com/radix-ui/themes) - your feedback and contributions are welcome!
+
+3. Run the development server:
+
+```bash
+npm run dev
+```
+---
+
+## Decision Reasoning 
+
+### Choosing database
+
+Choice: Supabase 
+
+I chose Supabase primarily for the quick and straightforward set up to allow me to focus more time on development
+Additionally, the requirement of the task did not require complex queries or highly relational data structures therefore Supabase provided the necessary functions to carry out the assignment.
+
+
+
+
