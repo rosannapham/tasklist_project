@@ -30,9 +30,19 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
   }
+
+  @keyframes pulse-colour {
+    0%, 100%{
+        color: var(--novaBlack-12);
+    }
+    50% {
+        color: var(--novaBlack-9)
+    }
+    
+  }
   
   .svg-pulse {
-    animation: pulse-color 1.5s ease-in-out infinite
+    animation: pulse-colour 1.5s ease-in-out infinite
   }
   /* Makes containers to have a proper inline padding on all screens */
   .rt-ContainerInner {

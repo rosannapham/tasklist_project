@@ -14,7 +14,7 @@ export function useTask() {
   const [isError, setIsError] = useState(false); 
   const [notFound, setNotFound] = useState(false);
 
-  useEffect(() => {
+  
     const fetchTask = async () => {
       try {
         setIsLoading(true);
@@ -32,18 +32,20 @@ export function useTask() {
       } finally {
         setIsLoading(false);
       }
-    };
+    }
 
     useEffect(() => {
-        fetchTask();
-    }) 
-  }, [slug]);
+        fetchTask()
+    },[slug])
+
+
 
   return {
     task,
     isLoading,
     isError,  
-    notFound,  
+    notFound,
+    fetchTask
 
   };
 }

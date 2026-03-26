@@ -4,6 +4,7 @@ import { Box, Button, Flex, Text } from "@radix-ui/themes";
 export function TaskStatePage({ title, description, actions}: TaskStateProps) {
 
     return (
+        
     <Box className="w-full h-full border-2 border-dashed border-gray-400 rounded-xl flex items-center justify-center">
     <Flex justify="center" direction="column" align="center" gap="2" className="h-full text-center">
         <Text size="4" weight="medium" >
