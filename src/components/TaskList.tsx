@@ -5,7 +5,7 @@ import { Badge, Flex, Skeleton, Strong, Table, Text } from "@radix-ui/themes";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 
-interface TaskListProps {
+export interface TaskListProps {
   categoryName?: string;
   tasks: Task[];
   hasSubheadings?: boolean;

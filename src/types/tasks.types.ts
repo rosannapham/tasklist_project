@@ -1,3 +1,5 @@
+import { AccountingToolOptions } from "@/hooks/useAccountingToolInviteTask";
+
 export interface TaskApi {
   id: string;
   status: string;
@@ -72,3 +74,17 @@ export interface TaskUpdateRequest {
     status: string
     completed_by: string
 }
+
+export interface Page1Props {
+    options: AccountingToolOptions[];
+    selectedId: number | null;
+    handleSelectCard: (id: number) => void;
+    handleCheckboxChange: (value: number) => void;
+    accountingInputValue: string;
+    handleTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  }
+  
+  export interface Page2Props {
+    selectedId: number | null;
+    handleCheckboxChange: (value: number) => void;
+  }
