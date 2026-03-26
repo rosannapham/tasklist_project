@@ -1,5 +1,7 @@
+"use client";
+import React from 'react';
 import toast from 'react-hot-toast';
-
+import { SuccessToast, ErrorToast } from '@/components/ui/Toast';
 
 export function useToast() {
   const showSuccess = (message: string) => {
