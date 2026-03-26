@@ -1,5 +1,5 @@
 import { TaskStateProps } from "@/types/tasks.types";
-import { Box, Button, Flex, Text } from "@radix-ui/themes";
+import { Box, Flex, Text } from "@radix-ui/themes";
 
 export function TaskStatePage({ title, description, actions }: TaskStateProps) {
   return (

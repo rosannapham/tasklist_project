@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const today = new Date().toISOString().split("T")[0];
 
-    const { data: overdue } = await supabase
+    const { data: overdue, error } = await supabase
       .from("tasks")
       .select("*")
       .eq("status", "pending")
@@ -37,6 +37,14 @@ export async function GET() {
       dueSoon: dueSoon || [],
     };
 
+    if (error) {
+      console.error("Database error:", error);
+      return NextResponse.json(
+        { error: "Failed to fetch tasks" },
+        { status: 500 },
+      );
+    }
+    
     return NextResponse.json({
       tasks: pendingTasks,
       taskCount: totalTasks || 0,

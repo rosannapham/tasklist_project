@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 import { tasksApi } from "@/lib/api/tasks";
-import { Task, TasksResponse } from "@/types/tasks.types";
+import { TasksResponse } from "@/types/tasks.types";
 
 export function useTasks() {
   type TaskTab = "pending" | "completed";
@@ -12,21 +12,21 @@ export function useTasks() {
   const [completedTasks, setCompletedTasks] = useState<TasksResponse>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<boolean>(false);
-  const [accountingTask, setTask] = useState<Task>();
 
   const fetchPendingTasks = async () => {
     try {
-      setIsLoading(true);
+        setIsLoading(true);
       setError(false);
 
       const pendingTasksData = await tasksApi.getPendingTasks();
       const completedTasksData = await tasksApi.getCompletedTasks();
       setPendingTasks(pendingTasksData);
       setCompletedTasks(completedTasksData);
+
     } catch (err) {
       setError(true);
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
   };
 
@@ -42,5 +42,6 @@ export function useTasks() {
     completedTasks,
     isLoading,
     error,
+    fetchPendingTasks: fetchPendingTasks()
   };
 }
