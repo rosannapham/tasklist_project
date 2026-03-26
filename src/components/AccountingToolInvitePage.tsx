@@ -1,7 +1,7 @@
+"use client";
 import { Box, Flex, Text } from "@radix-ui/themes";
-import { NovabookLogo } from "./ui/NovabookLogo";
 
-export function AccountingToolInvitePage() {
+export function AccountingToolInviteContent() {
 
     return (
     <Box className="w-full h-full  flex items-center justify-center">

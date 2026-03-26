@@ -1,11 +1,11 @@
 
-"use client"
+"use client";
 import { Task } from "@/types/tasks.types";
 import { TaskPageWrapper } from "@/components/TaskPageWrapper";
-import { AccountingToolInvitePage } from "@/components/AccountingToolInvitePage";
+import { AccountingToolInviteContent } from "@/components/AccountingToolInvitePage";
 
 const TASK_COMPONENTS: Record<string, React.ComponentType<{task: Task}>> = {
-    'accounting-tool-invitee': AccountingToolInvitePage
+    'accounting-tool-invite': AccountingToolInviteContent
 }
 
 function DefaultTaskContent({task}: {task: Task}) {
