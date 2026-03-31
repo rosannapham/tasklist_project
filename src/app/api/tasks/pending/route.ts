@@ -29,7 +29,8 @@ export async function GET() {
 
     const { count: totalTasks } = await supabase
       .from("tasks")
-      .select("*", { count: "exact", head: true });
+      .select("*", { count: "exact", head: true })
+      .eq("status", "pending");
 
     const pendingTasks: Tasks = {
       overdue: overdue || [],

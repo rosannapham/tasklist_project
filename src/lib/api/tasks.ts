@@ -29,7 +29,6 @@ export const tasksApi = {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error("Failed to fetch tasks:", error);
       throw error;
     }
   },
@@ -52,9 +51,8 @@ export const tasksApi = {
       const totalCount = data.taskCount;
       return { tasks: transformTasksFromApi(tasks), taskCount: totalCount };
     } catch (error) {
-      console.error("Failed to fetch tasks:", error);
       throw error;
-    }
+    }``
   },
 
   async getCompletedTasks(): Promise<TasksResponse> {
@@ -76,7 +74,7 @@ export const tasksApi = {
         taskCount: data.taskCount,
       };
     } catch (error) {
-      console.error("Failed to fetch tasks:", error);
+
       throw error;
     }
   },
@@ -98,14 +96,13 @@ export const tasksApi = {
 
       return transformTask(data);
     } catch (error) {
-      console.error("Failed to fetch task:", error);
+
       throw error;
     }
   },
 
   async postSaveAccountingTool(tool: AccountingToolBodyRequest) {
     try {
-      console.log("sending");
       const res = await fetch("/api/tasks/accounting-tool", {
         method: "POST",
         headers: {
@@ -113,12 +110,7 @@ export const tasksApi = {
         },
         body: JSON.stringify(tool),
       });
-      console.log("status" + res.status);
-      console.log("ok" + res.ok);
-      const t = await res.text();
-      console.log("t" + t);
     } catch (error) {
-      console.error("Failed to fetch task:", error);
       throw error;
     }
   },
@@ -144,7 +136,6 @@ export const tasksApi = {
 
       return transformTask(data);
     } catch (error) {
-      console.error("Failed to fetch task:", error);
       throw error;
     }
   },

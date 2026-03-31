@@ -6,8 +6,8 @@ import { PendingTasksList } from "@/components/PendingTaskList";
 import TaskListContainer from "@/components/TaskListContainer";
 import { TaskStatePage } from "@/components/TaskStatePage";
 import { useTasks } from "@/hooks/useTasks";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { Button, SegmentedControl, Skeleton, Text } from "@radix-ui/themes";
+import { MagnifyingGlassIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { Button, Flex, SegmentedControl, Select, Skeleton, Text, TextField } from "@radix-ui/themes";
 
 export default function TasksPage() {
   const {
@@ -21,6 +21,8 @@ export default function TasksPage() {
     completedLoading,
     fetchCompletedTasks,
     fetchPendingTasks,
+    search, 
+    handleSearch
   } = useTasks();
 
   return (
@@ -52,6 +54,33 @@ export default function TasksPage() {
             </SegmentedControl.Item>
           </SegmentedControl.Root>
         </div>
+        <Flex direction="row" gap="4">
+        <TextField.Root className="mb-4" placeholder="Search the docs…" value = {search} onChange={handleSearch} >
+	        <TextField.Slot>
+		    <MagnifyingGlassIcon height="16" width="16" />
+	    </TextField.Slot>
+    </TextField.Root>
+    <Select.Root defaultValue="apple">
+	<Select.Trigger />
+	<Select.Content>
+		<Select.Group>
+			<Select.Label>Fruits</Select.Label>
+			<Select.Item value="orange">Orange</Select.Item>
+			<Select.Item value="apple">Apple</Select.Item>
+			<Select.Item value="grape" disabled>
+				Grape
+			</Select.Item>
+		</Select.Group>
+		<Select.Separator />
+		<Select.Group>
+			<Select.Label>Vegetables</Select.Label>
+			<Select.Item value="carrot">Carrot</Select.Item>
+			<Select.Item value="potato">Potato</Select.Item>
+		</Select.Group>
+	</Select.Content>
+</Select.Root>
+</Flex>
+
         <div className="flex-1 overflow-auto">
           {selectedTab === "pending" && (
             <TaskListContainer
@@ -77,7 +106,7 @@ export default function TasksPage() {
             >
               {completedTasks?.tasks && (
                 <div className="h-full">
-                  <PendingTasksList
+                  <CompletedTaskList
                     tasks={completedTasks.tasks}
                     taskCount={completedTasks.taskCount}
                   />

@@ -16,6 +16,13 @@ export function useTasks() {
   const [pendingError, setPendingError] = useState<boolean>(false);
   const [completedError, setCompletedError] = useState<boolean>(false);
 
+  const [search, setSearch] = useState<string>("")
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value)
+    console.log(search)
+  }
+
   const fetchPendingTasks = async () => {
     try {
       setPendingLoading(true);
@@ -64,5 +71,7 @@ export function useTasks() {
     completedError,
     fetchPendingTasks,
     fetchCompletedTasks,
+    search, 
+    handleSearch
   };
 }

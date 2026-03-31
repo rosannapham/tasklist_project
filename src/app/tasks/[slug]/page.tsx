@@ -2,9 +2,12 @@
 import { Task } from "@/types/tasks.types";
 import { TaskPageWrapper } from "@/components/TaskPageWrapper";
 import { AccountingToolInviteTask } from "@/components/AccountingToolInviteTask";
+import { VatSetup } from "@/components/VatSetup";
+
 
 const TASK_COMPONENTS: Record<string, React.ComponentType<{ task: Task }>> = {
   "accounting-tool-invite": AccountingToolInviteTask,
+  "vat-setup": VatSetup
 };
 
 function DefaultTaskContent() {

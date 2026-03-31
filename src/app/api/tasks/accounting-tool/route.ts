@@ -25,7 +25,10 @@ export async function POST(req: NextRequest) {
         { error: "Failed to post task" },
         { status: 500 },
       );
-    }
+    }    return NextResponse.json(
+        { error: "Failed to post task" },
+        { status: 500 },
+      );
 
     return NextResponse.json({ message: "task created" }, { status: 201 });
   } catch (error) {
